@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HTML Style Gallery - 100 Wireframes</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; color: #e2e8f0; font-family: system-ui, -apple-system, sans-serif; padding: 2rem; }
+  h1 { text-align: center; color: #60a5fa; margin-bottom: 0.5rem; font-size: 1.8rem; }
+  .subtitle { text-align: center; color: #94a3b8; margin-bottom: 2rem; font-size: 0.9rem; }
+  .filters { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .filters button {
+    background: #1e293b; color: #94a3b8; border: 1px solid #334155; padding: 6px 14px;
+    border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.2s;
+  }
+  .filters button:hover, .filters button.active { background: #2563eb; color: white; border-color: #2563eb; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 12px; }
+  .card {
+    background: #1e293b; border-radius: 8px; padding: 8px; transition: transform 0.15s;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card img { width: 100%; border-radius: 4px; display: block; }
+  .card .label { text-align: center; padding: 6px; font-size: 13px; color: #94a3b8; }
+  .card .label .num { color: #60a5fa; font-weight: bold; }
+  .counter { text-align: center; color: #64748b; margin-top: 1.5rem; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<h1>HTML Style Gallery</h1>
+<p class="subtitle">10 Layouts x 5 Component Styles x 2 Densities = 100 SVG Wireframes</p>
+<div class="filters" id="filters">
+  <button class="active" data-filter="all">All (100)</button>
+  <button data-filter="layout-01">01 Sticky Nav</button>
+  <button data-filter="layout-02">02 Sidebar</button>
+  <button data-filter="layout-03">03 Fullwidth</button>
+  <button data-filter="layout-04">04 Magazine</button>
+  <button data-filter="layout-05">05 Comparison</button>
+  <button data-filter="layout-06">06 Dashboard</button>
+  <button data-filter="layout-07">07 Hero</button>
+  <button data-filter="layout-08">08 Timeline</button>
+  <button data-filter="layout-09">09 Tabbed</button>
+  <button data-filter="layout-10">10 Split</button>
+  <button data-filter="style-A">Flat (A)</button>
+  <button data-filter="style-B">Bordered (B)</button>
+  <button data-filter="style-C">Shadowed (C)</button>
+  <button data-filter="style-D">Glass (D)</button>
+  <button data-filter="style-E">Gradient (E)</button>
+  <button data-filter="density-normal">Normal</button>
+  <button data-filter="density-compact">Compact</button>
+</div>
+<div class="grid" id="grid">
+    <div class="card">
+      <img src="01A_normal_sticky_nav_cards.svg" alt="01A. Sticky Nav Cards - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">01A</span> Sticky Nav Cards - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="01A_compact_sticky_nav_cards.svg" alt="01A. Sticky Nav Cards - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">01A</span> Sticky Nav Cards - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="01B_normal_sticky_nav_cards.svg" alt="01B. Sticky Nav Cards - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">01B</span> Sticky Nav Cards - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="01B_compact_sticky_nav_cards.svg" alt="01B. Sticky Nav Cards - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">01B</span> Sticky Nav Cards - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="01C_normal_sticky_nav_cards.svg" alt="01C. Sticky Nav Cards - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">01C</span> Sticky Nav Cards - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="01C_compact_sticky_nav_cards.svg" alt="01C. Sticky Nav Cards - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">01C</span> Sticky Nav Cards - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="01D_normal_sticky_nav_cards.svg" alt="01D. Sticky Nav Cards - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">01D</span> Sticky Nav Cards - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="01D_compact_sticky_nav_cards.svg" alt="01D. Sticky Nav Cards - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">01D</span> Sticky Nav Cards - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="01E_normal_sticky_nav_cards.svg" alt="01E. Sticky Nav Cards - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">01E</span> Sticky Nav Cards - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="01E_compact_sticky_nav_cards.svg" alt="01E. Sticky Nav Cards - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">01E</span> Sticky Nav Cards - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="02A_normal_sidebar_nav.svg" alt="02A. Sidebar Nav - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">02A</span> Sidebar Nav - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="02A_compact_sidebar_nav.svg" alt="02A. Sidebar Nav - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">02A</span> Sidebar Nav - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="02B_normal_sidebar_nav.svg" alt="02B. Sidebar Nav - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">02B</span> Sidebar Nav - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="02B_compact_sidebar_nav.svg" alt="02B. Sidebar Nav - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">02B</span> Sidebar Nav - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="02C_normal_sidebar_nav.svg" alt="02C. Sidebar Nav - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">02C</span> Sidebar Nav - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="02C_compact_sidebar_nav.svg" alt="02C. Sidebar Nav - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">02C</span> Sidebar Nav - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="02D_normal_sidebar_nav.svg" alt="02D. Sidebar Nav - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">02D</span> Sidebar Nav - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="02D_compact_sidebar_nav.svg" alt="02D. Sidebar Nav - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">02D</span> Sidebar Nav - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="02E_normal_sidebar_nav.svg" alt="02E. Sidebar Nav - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">02E</span> Sidebar Nav - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="02E_compact_sidebar_nav.svg" alt="02E. Sidebar Nav - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">02E</span> Sidebar Nav - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="03A_normal_fullwidth_sections.svg" alt="03A. Fullwidth Sections - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">03A</span> Fullwidth Sections - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="03A_compact_fullwidth_sections.svg" alt="03A. Fullwidth Sections - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">03A</span> Fullwidth Sections - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="03B_normal_fullwidth_sections.svg" alt="03B. Fullwidth Sections - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">03B</span> Fullwidth Sections - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="03B_compact_fullwidth_sections.svg" alt="03B. Fullwidth Sections - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">03B</span> Fullwidth Sections - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="03C_normal_fullwidth_sections.svg" alt="03C. Fullwidth Sections - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">03C</span> Fullwidth Sections - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="03C_compact_fullwidth_sections.svg" alt="03C. Fullwidth Sections - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">03C</span> Fullwidth Sections - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="03D_normal_fullwidth_sections.svg" alt="03D. Fullwidth Sections - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">03D</span> Fullwidth Sections - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="03D_compact_fullwidth_sections.svg" alt="03D. Fullwidth Sections - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">03D</span> Fullwidth Sections - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="03E_normal_fullwidth_sections.svg" alt="03E. Fullwidth Sections - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">03E</span> Fullwidth Sections - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="03E_compact_fullwidth_sections.svg" alt="03E. Fullwidth Sections - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">03E</span> Fullwidth Sections - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="04A_normal_magazine_grid.svg" alt="04A. Magazine Grid - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">04A</span> Magazine Grid - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="04A_compact_magazine_grid.svg" alt="04A. Magazine Grid - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">04A</span> Magazine Grid - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="04B_normal_magazine_grid.svg" alt="04B. Magazine Grid - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">04B</span> Magazine Grid - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="04B_compact_magazine_grid.svg" alt="04B. Magazine Grid - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">04B</span> Magazine Grid - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="04C_normal_magazine_grid.svg" alt="04C. Magazine Grid - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">04C</span> Magazine Grid - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="04C_compact_magazine_grid.svg" alt="04C. Magazine Grid - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">04C</span> Magazine Grid - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="04D_normal_magazine_grid.svg" alt="04D. Magazine Grid - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">04D</span> Magazine Grid - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="04D_compact_magazine_grid.svg" alt="04D. Magazine Grid - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">04D</span> Magazine Grid - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="04E_normal_magazine_grid.svg" alt="04E. Magazine Grid - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">04E</span> Magazine Grid - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="04E_compact_magazine_grid.svg" alt="04E. Magazine Grid - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">04E</span> Magazine Grid - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="05A_normal_two_col_comparison.svg" alt="05A. Two Col Comparison - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">05A</span> Two Col Comparison - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="05A_compact_two_col_comparison.svg" alt="05A. Two Col Comparison - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">05A</span> Two Col Comparison - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="05B_normal_two_col_comparison.svg" alt="05B. Two Col Comparison - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">05B</span> Two Col Comparison - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="05B_compact_two_col_comparison.svg" alt="05B. Two Col Comparison - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">05B</span> Two Col Comparison - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="05C_normal_two_col_comparison.svg" alt="05C. Two Col Comparison - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">05C</span> Two Col Comparison - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="05C_compact_two_col_comparison.svg" alt="05C. Two Col Comparison - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">05C</span> Two Col Comparison - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="05D_normal_two_col_comparison.svg" alt="05D. Two Col Comparison - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">05D</span> Two Col Comparison - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="05D_compact_two_col_comparison.svg" alt="05D. Two Col Comparison - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">05D</span> Two Col Comparison - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="05E_normal_two_col_comparison.svg" alt="05E. Two Col Comparison - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">05E</span> Two Col Comparison - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="05E_compact_two_col_comparison.svg" alt="05E. Two Col Comparison - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">05E</span> Two Col Comparison - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="06A_normal_dashboard.svg" alt="06A. Dashboard - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">06A</span> Dashboard - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="06A_compact_dashboard.svg" alt="06A. Dashboard - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">06A</span> Dashboard - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="06B_normal_dashboard.svg" alt="06B. Dashboard - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">06B</span> Dashboard - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="06B_compact_dashboard.svg" alt="06B. Dashboard - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">06B</span> Dashboard - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="06C_normal_dashboard.svg" alt="06C. Dashboard - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">06C</span> Dashboard - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="06C_compact_dashboard.svg" alt="06C. Dashboard - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">06C</span> Dashboard - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="06D_normal_dashboard.svg" alt="06D. Dashboard - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">06D</span> Dashboard - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="06D_compact_dashboard.svg" alt="06D. Dashboard - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">06D</span> Dashboard - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="06E_normal_dashboard.svg" alt="06E. Dashboard - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">06E</span> Dashboard - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="06E_compact_dashboard.svg" alt="06E. Dashboard - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">06E</span> Dashboard - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="07A_normal_hero_sections.svg" alt="07A. Hero Sections - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">07A</span> Hero Sections - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="07A_compact_hero_sections.svg" alt="07A. Hero Sections - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">07A</span> Hero Sections - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="07B_normal_hero_sections.svg" alt="07B. Hero Sections - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">07B</span> Hero Sections - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="07B_compact_hero_sections.svg" alt="07B. Hero Sections - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">07B</span> Hero Sections - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="07C_normal_hero_sections.svg" alt="07C. Hero Sections - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">07C</span> Hero Sections - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="07C_compact_hero_sections.svg" alt="07C. Hero Sections - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">07C</span> Hero Sections - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="07D_normal_hero_sections.svg" alt="07D. Hero Sections - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">07D</span> Hero Sections - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="07D_compact_hero_sections.svg" alt="07D. Hero Sections - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">07D</span> Hero Sections - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="07E_normal_hero_sections.svg" alt="07E. Hero Sections - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">07E</span> Hero Sections - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="07E_compact_hero_sections.svg" alt="07E. Hero Sections - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">07E</span> Hero Sections - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="08A_normal_timeline.svg" alt="08A. Timeline - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">08A</span> Timeline - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="08A_compact_timeline.svg" alt="08A. Timeline - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">08A</span> Timeline - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="08B_normal_timeline.svg" alt="08B. Timeline - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">08B</span> Timeline - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="08B_compact_timeline.svg" alt="08B. Timeline - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">08B</span> Timeline - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="08C_normal_timeline.svg" alt="08C. Timeline - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">08C</span> Timeline - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="08C_compact_timeline.svg" alt="08C. Timeline - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">08C</span> Timeline - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="08D_normal_timeline.svg" alt="08D. Timeline - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">08D</span> Timeline - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="08D_compact_timeline.svg" alt="08D. Timeline - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">08D</span> Timeline - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="08E_normal_timeline.svg" alt="08E. Timeline - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">08E</span> Timeline - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="08E_compact_timeline.svg" alt="08E. Timeline - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">08E</span> Timeline - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="09A_normal_tabbed_sections.svg" alt="09A. Tabbed Sections - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">09A</span> Tabbed Sections - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="09A_compact_tabbed_sections.svg" alt="09A. Tabbed Sections - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">09A</span> Tabbed Sections - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="09B_normal_tabbed_sections.svg" alt="09B. Tabbed Sections - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">09B</span> Tabbed Sections - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="09B_compact_tabbed_sections.svg" alt="09B. Tabbed Sections - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">09B</span> Tabbed Sections - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="09C_normal_tabbed_sections.svg" alt="09C. Tabbed Sections - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">09C</span> Tabbed Sections - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="09C_compact_tabbed_sections.svg" alt="09C. Tabbed Sections - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">09C</span> Tabbed Sections - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="09D_normal_tabbed_sections.svg" alt="09D. Tabbed Sections - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">09D</span> Tabbed Sections - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="09D_compact_tabbed_sections.svg" alt="09D. Tabbed Sections - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">09D</span> Tabbed Sections - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="09E_normal_tabbed_sections.svg" alt="09E. Tabbed Sections - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">09E</span> Tabbed Sections - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="09E_compact_tabbed_sections.svg" alt="09E. Tabbed Sections - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">09E</span> Tabbed Sections - Gradient / Compact</div>
+    </div>
+    <div class="card">
+      <img src="10A_normal_split_panel.svg" alt="10A. Split Panel - Flat / Normal" loading="lazy"/>
+      <div class="label"><span class="num">10A</span> Split Panel - Flat / Normal</div>
+    </div>
+    <div class="card">
+      <img src="10A_compact_split_panel.svg" alt="10A. Split Panel - Flat / Compact" loading="lazy"/>
+      <div class="label"><span class="num">10A</span> Split Panel - Flat / Compact</div>
+    </div>
+    <div class="card">
+      <img src="10B_normal_split_panel.svg" alt="10B. Split Panel - Bordered / Normal" loading="lazy"/>
+      <div class="label"><span class="num">10B</span> Split Panel - Bordered / Normal</div>
+    </div>
+    <div class="card">
+      <img src="10B_compact_split_panel.svg" alt="10B. Split Panel - Bordered / Compact" loading="lazy"/>
+      <div class="label"><span class="num">10B</span> Split Panel - Bordered / Compact</div>
+    </div>
+    <div class="card">
+      <img src="10C_normal_split_panel.svg" alt="10C. Split Panel - Shadowed / Normal" loading="lazy"/>
+      <div class="label"><span class="num">10C</span> Split Panel - Shadowed / Normal</div>
+    </div>
+    <div class="card">
+      <img src="10C_compact_split_panel.svg" alt="10C. Split Panel - Shadowed / Compact" loading="lazy"/>
+      <div class="label"><span class="num">10C</span> Split Panel - Shadowed / Compact</div>
+    </div>
+    <div class="card">
+      <img src="10D_normal_split_panel.svg" alt="10D. Split Panel - Glass / Normal" loading="lazy"/>
+      <div class="label"><span class="num">10D</span> Split Panel - Glass / Normal</div>
+    </div>
+    <div class="card">
+      <img src="10D_compact_split_panel.svg" alt="10D. Split Panel - Glass / Compact" loading="lazy"/>
+      <div class="label"><span class="num">10D</span> Split Panel - Glass / Compact</div>
+    </div>
+    <div class="card">
+      <img src="10E_normal_split_panel.svg" alt="10E. Split Panel - Gradient / Normal" loading="lazy"/>
+      <div class="label"><span class="num">10E</span> Split Panel - Gradient / Normal</div>
+    </div>
+    <div class="card">
+      <img src="10E_compact_split_panel.svg" alt="10E. Split Panel - Gradient / Compact" loading="lazy"/>
+      <div class="label"><span class="num">10E</span> Split Panel - Gradient / Compact</div>
+    </div>
+</div>
+<p class="counter" id="counter">Showing 100 of 100</p>
+<script>
+(function() {
+  const btns = document.querySelectorAll('#filters button');
+  const cards = document.querySelectorAll('.card');
+  const counter = document.getElementById('counter');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      let shown = 0;
+      cards.forEach(card => {
+        const img = card.querySelector('img');
+        const src = img.getAttribute('src');
+        let visible = true;
+        if (f !== 'all') {
+          if (f.startsWith('layout-')) {
+            visible = src.startsWith(f.replace('layout-', ''));
+          } else if (f.startsWith('style-')) {
+            const letter = f.replace('style-', '');
+            visible = src.charAt(2) === letter;
+          } else if (f.startsWith('density-')) {
+            const d = f.replace('density-', '');
+            visible = src.includes('_' + d + '_');
+          }
+        }
+        card.style.display = visible ? '' : 'none';
+        if (visible) shown++;
+      });
+      counter.textContent = 'Showing ' + shown + ' of 100';
+    });
+  });
+})();
+</script>
+</body>
+</html>

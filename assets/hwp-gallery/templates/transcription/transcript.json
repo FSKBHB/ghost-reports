@@ -1,0 +1,40 @@
+{
+  "id": "transcript",
+  "category": "transcription",
+  "name": "전사록",
+  "icon": "🎙️",
+  "description": "타임스탬프별 발언, 화자 구분",
+  "procedure": 4,
+  "features": ["timestamps", "speaker-label"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "전사 제목",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 20, "title_color": "BLUE", "subtitle_size": 10, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "날짜 / 참석자",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "transcript",
+      "label": "전사 본문",
+      "required": true,
+      "render": "transcript_body",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": { "size": 8.5, "align": "center" }
+    }
+  ],
+  "options": { "page_border": true }
+}

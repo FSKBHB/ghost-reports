@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHOST Typography Gallery - 100 Cards</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center; font-size: 24px; margin-bottom: 8px;
+    color: #60a5fa;
+  }
+  .subtitle {
+    text-align: center; color: #94a3b8; margin-bottom: 20px; font-size: 14px;
+  }
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-bottom: 20px; padding: 12px; background: #1e293b;
+    border-radius: 8px; border: 1px solid #334155;
+  }
+  .filters label { font-size: 12px; color: #94a3b8; }
+  .filters select {
+    background: #0f172a; color: #e2e8f0; border: 1px solid #334155;
+    border-radius: 4px; padding: 4px 8px; font-size: 12px;
+  }
+  .filter-group { display: flex; flex-direction: column; gap: 2px; }
+  .count { text-align: center; color: #60a5fa; margin-bottom: 16px; font-size: 13px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: #1e293b; border-radius: 8px; overflow: hidden;
+    border: 1px solid #334155; transition: transform 0.15s, border-color 0.15s;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-2px); border-color: #60a5fa;
+  }
+  .card.hidden { display: none; }
+  .card img {
+    width: 100%; height: auto; display: block;
+  }
+  .info {
+    padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+    font-size: 11px; flex-wrap: wrap;
+  }
+  .num {
+    background: #2563eb; color: white; padding: 2px 6px;
+    border-radius: 3px; font-weight: bold; font-size: 11px;
+  }
+  .fonts { color: #cbd5e1; flex: 1; }
+  .scale {
+    background: #172554; color: #93c5fd; padding: 2px 8px;
+    border-radius: 3px; font-size: 10px;
+  }
+  /* Lightbox */
+  .lightbox {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85); z-index: 1000;
+    justify-content: center; align-items: center;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 90vh; border-radius: 8px;
+    box-shadow: 0 0 40px rgba(96,165,250,0.3);
+  }
+  .lightbox-close {
+    position: fixed; top: 20px; right: 20px; color: white;
+    font-size: 28px; cursor: pointer; z-index: 1001;
+    width: 40px; height: 40px; display: flex; align-items: center;
+    justify-content: center; background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+<h1>GHOST Typography Gallery</h1>
+<p class="subtitle">100 font pairing cards -- Heading x Body x Code x Scale</p>
+
+<div class="filters">
+  <div class="filter-group">
+    <label>Heading Font</label>
+    <select id="fHead"><option value="all">All (10)</option><option value="0">Noto Sans KR 700</option><option value="1">Noto Sans KR 300</option><option value="2">Noto Serif KR 700</option><option value="3">Pretendard 700</option><option value="4">Black Han Sans</option><option value="5">IBM Plex Sans KR 600</option><option value="6">Gowun Dodum</option><option value="7">Do Hyeon</option><option value="8">Nanum Myeongjo 700</option><option value="9">Spoqa Han Sans Neo 700</option></select>
+  </div>
+  <div class="filter-group">
+    <label>Body Font</label>
+    <select id="fBody"><option value="all">All (5)</option><option value="0">Noto Sans KR 400</option><option value="1">Pretendard 400</option><option value="2">Noto Sans KR 300</option><option value="3">Noto Serif KR 400</option><option value="4">IBM Plex Sans KR 400</option></select>
+  </div>
+  <div class="filter-group">
+    <label>Code Font</label>
+    <select id="fCode"><option value="all">All (4)</option><option value="0">Cascadia Code</option><option value="1">JetBrains Mono</option><option value="2">Fira Code</option><option value="3">D2Coding</option></select>
+  </div>
+  <div class="filter-group">
+    <label>Scale</label>
+    <select id="fScale"><option value="all">All (5)</option><option value="0">Compact</option><option value="1">Small</option><option value="2">Default</option><option value="3">Large</option><option value="4">XL</option></select>
+  </div>
+</div>
+<p class="count">Showing <span id="visCount">100</span> of 100 cards</p>
+
+<div class="grid" id="grid">
+    <div class="card" data-heading="0" data-body="0" data-code="0" data-scale="2">
+      <img src="001_card.png" alt="Card 001" loading="lazy">
+      <div class="info">
+        <span class="num">001</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="1" data-scale="2">
+      <img src="002_card.png" alt="Card 002" loading="lazy">
+      <div class="info">
+        <span class="num">002</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="2" data-scale="2">
+      <img src="003_card.png" alt="Card 003" loading="lazy">
+      <div class="info">
+        <span class="num">003</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="3" data-scale="2">
+      <img src="004_card.png" alt="Card 004" loading="lazy">
+      <div class="info">
+        <span class="num">004</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="0" data-scale="2">
+      <img src="005_card.png" alt="Card 005" loading="lazy">
+      <div class="info">
+        <span class="num">005</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="1" data-scale="2">
+      <img src="006_card.png" alt="Card 006" loading="lazy">
+      <div class="info">
+        <span class="num">006</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="2" data-scale="2">
+      <img src="007_card.png" alt="Card 007" loading="lazy">
+      <div class="info">
+        <span class="num">007</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="3" data-scale="2">
+      <img src="008_card.png" alt="Card 008" loading="lazy">
+      <div class="info">
+        <span class="num">008</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="2" data-code="0" data-scale="2">
+      <img src="009_card.png" alt="Card 009" loading="lazy">
+      <div class="info">
+        <span class="num">009</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 300 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="2" data-code="1" data-scale="2">
+      <img src="010_card.png" alt="Card 010" loading="lazy">
+      <div class="info">
+        <span class="num">010</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 300 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="2" data-code="2" data-scale="2">
+      <img src="011_card.png" alt="Card 011" loading="lazy">
+      <div class="info">
+        <span class="num">011</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 300 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="2" data-code="3" data-scale="2">
+      <img src="012_card.png" alt="Card 012" loading="lazy">
+      <div class="info">
+        <span class="num">012</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 300 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="3" data-code="0" data-scale="2">
+      <img src="013_card.png" alt="Card 013" loading="lazy">
+      <div class="info">
+        <span class="num">013</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Serif KR 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="3" data-code="1" data-scale="2">
+      <img src="014_card.png" alt="Card 014" loading="lazy">
+      <div class="info">
+        <span class="num">014</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Serif KR 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="3" data-code="2" data-scale="2">
+      <img src="015_card.png" alt="Card 015" loading="lazy">
+      <div class="info">
+        <span class="num">015</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Serif KR 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="3" data-code="3" data-scale="2">
+      <img src="016_card.png" alt="Card 016" loading="lazy">
+      <div class="info">
+        <span class="num">016</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Serif KR 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="4" data-code="0" data-scale="2">
+      <img src="017_card.png" alt="Card 017" loading="lazy">
+      <div class="info">
+        <span class="num">017</span>
+        <span class="fonts">Noto Sans KR 700 + IBM Plex Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="4" data-code="1" data-scale="2">
+      <img src="018_card.png" alt="Card 018" loading="lazy">
+      <div class="info">
+        <span class="num">018</span>
+        <span class="fonts">Noto Sans KR 700 + IBM Plex Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="4" data-code="2" data-scale="2">
+      <img src="019_card.png" alt="Card 019" loading="lazy">
+      <div class="info">
+        <span class="num">019</span>
+        <span class="fonts">Noto Sans KR 700 + IBM Plex Sans KR 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="4" data-code="3" data-scale="2">
+      <img src="020_card.png" alt="Card 020" loading="lazy">
+      <div class="info">
+        <span class="num">020</span>
+        <span class="fonts">Noto Sans KR 700 + IBM Plex Sans KR 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="0" data-code="0" data-scale="2">
+      <img src="021_card.png" alt="Card 021" loading="lazy">
+      <div class="info">
+        <span class="num">021</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="0" data-code="1" data-scale="2">
+      <img src="022_card.png" alt="Card 022" loading="lazy">
+      <div class="info">
+        <span class="num">022</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="0" data-code="2" data-scale="2">
+      <img src="023_card.png" alt="Card 023" loading="lazy">
+      <div class="info">
+        <span class="num">023</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="0" data-code="3" data-scale="2">
+      <img src="024_card.png" alt="Card 024" loading="lazy">
+      <div class="info">
+        <span class="num">024</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="1" data-code="0" data-scale="2">
+      <img src="025_card.png" alt="Card 025" loading="lazy">
+      <div class="info">
+        <span class="num">025</span>
+        <span class="fonts">Noto Sans KR 300 + Pretendard 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="1" data-code="1" data-scale="2">
+      <img src="026_card.png" alt="Card 026" loading="lazy">
+      <div class="info">
+        <span class="num">026</span>
+        <span class="fonts">Noto Sans KR 300 + Pretendard 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="1" data-code="2" data-scale="2">
+      <img src="027_card.png" alt="Card 027" loading="lazy">
+      <div class="info">
+        <span class="num">027</span>
+        <span class="fonts">Noto Sans KR 300 + Pretendard 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="1" data-code="3" data-scale="2">
+      <img src="028_card.png" alt="Card 028" loading="lazy">
+      <div class="info">
+        <span class="num">028</span>
+        <span class="fonts">Noto Sans KR 300 + Pretendard 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="2" data-code="0" data-scale="2">
+      <img src="029_card.png" alt="Card 029" loading="lazy">
+      <div class="info">
+        <span class="num">029</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 300 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="2" data-code="1" data-scale="2">
+      <img src="030_card.png" alt="Card 030" loading="lazy">
+      <div class="info">
+        <span class="num">030</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 300 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="2" data-code="2" data-scale="2">
+      <img src="031_card.png" alt="Card 031" loading="lazy">
+      <div class="info">
+        <span class="num">031</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 300 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="2" data-code="3" data-scale="2">
+      <img src="032_card.png" alt="Card 032" loading="lazy">
+      <div class="info">
+        <span class="num">032</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 300 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="3" data-code="0" data-scale="2">
+      <img src="033_card.png" alt="Card 033" loading="lazy">
+      <div class="info">
+        <span class="num">033</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Serif KR 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="3" data-code="1" data-scale="2">
+      <img src="034_card.png" alt="Card 034" loading="lazy">
+      <div class="info">
+        <span class="num">034</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Serif KR 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="3" data-code="2" data-scale="2">
+      <img src="035_card.png" alt="Card 035" loading="lazy">
+      <div class="info">
+        <span class="num">035</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Serif KR 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="3" data-code="3" data-scale="2">
+      <img src="036_card.png" alt="Card 036" loading="lazy">
+      <div class="info">
+        <span class="num">036</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Serif KR 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="4" data-code="0" data-scale="2">
+      <img src="037_card.png" alt="Card 037" loading="lazy">
+      <div class="info">
+        <span class="num">037</span>
+        <span class="fonts">Noto Sans KR 300 + IBM Plex Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="4" data-code="1" data-scale="2">
+      <img src="038_card.png" alt="Card 038" loading="lazy">
+      <div class="info">
+        <span class="num">038</span>
+        <span class="fonts">Noto Sans KR 300 + IBM Plex Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="4" data-code="2" data-scale="2">
+      <img src="039_card.png" alt="Card 039" loading="lazy">
+      <div class="info">
+        <span class="num">039</span>
+        <span class="fonts">Noto Sans KR 300 + IBM Plex Sans KR 400 + Fira Code</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="4" data-code="3" data-scale="2">
+      <img src="040_card.png" alt="Card 040" loading="lazy">
+      <div class="info">
+        <span class="num">040</span>
+        <span class="fonts">Noto Sans KR 300 + IBM Plex Sans KR 400 + D2Coding</span>
+        <span class="scale">Default</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="0" data-scale="0">
+      <img src="041_card.png" alt="Card 041" loading="lazy">
+      <div class="info">
+        <span class="num">041</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="1" data-code="1" data-scale="0">
+      <img src="042_card.png" alt="Card 042" loading="lazy">
+      <div class="info">
+        <span class="num">042</span>
+        <span class="fonts">Noto Sans KR 300 + Pretendard 400 + JetBrains Mono</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="2" data-body="2" data-code="2" data-scale="0">
+      <img src="043_card.png" alt="Card 043" loading="lazy">
+      <div class="info">
+        <span class="num">043</span>
+        <span class="fonts">Noto Serif KR 700 + Noto Sans KR 300 + Fira Code</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="3" data-body="3" data-code="3" data-scale="0">
+      <img src="044_card.png" alt="Card 044" loading="lazy">
+      <div class="info">
+        <span class="num">044</span>
+        <span class="fonts">Pretendard 700 + Noto Serif KR 400 + D2Coding</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="4" data-body="4" data-code="0" data-scale="0">
+      <img src="045_card.png" alt="Card 045" loading="lazy">
+      <div class="info">
+        <span class="num">045</span>
+        <span class="fonts">Black Han Sans + IBM Plex Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="5" data-body="0" data-code="1" data-scale="0">
+      <img src="046_card.png" alt="Card 046" loading="lazy">
+      <div class="info">
+        <span class="num">046</span>
+        <span class="fonts">IBM Plex Sans KR 600 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="6" data-body="1" data-code="2" data-scale="0">
+      <img src="047_card.png" alt="Card 047" loading="lazy">
+      <div class="info">
+        <span class="num">047</span>
+        <span class="fonts">Gowun Dodum + Pretendard 400 + Fira Code</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="7" data-body="2" data-code="3" data-scale="0">
+      <img src="048_card.png" alt="Card 048" loading="lazy">
+      <div class="info">
+        <span class="num">048</span>
+        <span class="fonts">Do Hyeon + Noto Sans KR 300 + D2Coding</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="8" data-body="3" data-code="0" data-scale="0">
+      <img src="049_card.png" alt="Card 049" loading="lazy">
+      <div class="info">
+        <span class="num">049</span>
+        <span class="fonts">Nanum Myeongjo 700 + Noto Serif KR 400 + Cascadia Code</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="9" data-body="4" data-code="1" data-scale="0">
+      <img src="050_card.png" alt="Card 050" loading="lazy">
+      <div class="info">
+        <span class="num">050</span>
+        <span class="fonts">Spoqa Han Sans Neo 700 + IBM Plex Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="1" data-scale="1">
+      <img src="051_card.png" alt="Card 051" loading="lazy">
+      <div class="info">
+        <span class="num">051</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + JetBrains Mono</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="2" data-code="2" data-scale="1">
+      <img src="052_card.png" alt="Card 052" loading="lazy">
+      <div class="info">
+        <span class="num">052</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 300 + Fira Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="2" data-body="3" data-code="3" data-scale="1">
+      <img src="053_card.png" alt="Card 053" loading="lazy">
+      <div class="info">
+        <span class="num">053</span>
+        <span class="fonts">Noto Serif KR 700 + Noto Serif KR 400 + D2Coding</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="3" data-body="4" data-code="0" data-scale="1">
+      <img src="054_card.png" alt="Card 054" loading="lazy">
+      <div class="info">
+        <span class="num">054</span>
+        <span class="fonts">Pretendard 700 + IBM Plex Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="4" data-body="0" data-code="1" data-scale="1">
+      <img src="055_card.png" alt="Card 055" loading="lazy">
+      <div class="info">
+        <span class="num">055</span>
+        <span class="fonts">Black Han Sans + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="5" data-body="1" data-code="2" data-scale="1">
+      <img src="056_card.png" alt="Card 056" loading="lazy">
+      <div class="info">
+        <span class="num">056</span>
+        <span class="fonts">IBM Plex Sans KR 600 + Pretendard 400 + Fira Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="6" data-body="2" data-code="3" data-scale="1">
+      <img src="057_card.png" alt="Card 057" loading="lazy">
+      <div class="info">
+        <span class="num">057</span>
+        <span class="fonts">Gowun Dodum + Noto Sans KR 300 + D2Coding</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="7" data-body="3" data-code="0" data-scale="1">
+      <img src="058_card.png" alt="Card 058" loading="lazy">
+      <div class="info">
+        <span class="num">058</span>
+        <span class="fonts">Do Hyeon + Noto Serif KR 400 + Cascadia Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="8" data-body="4" data-code="1" data-scale="1">
+      <img src="059_card.png" alt="Card 059" loading="lazy">
+      <div class="info">
+        <span class="num">059</span>
+        <span class="fonts">Nanum Myeongjo 700 + IBM Plex Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="9" data-body="0" data-code="2" data-scale="1">
+      <img src="060_card.png" alt="Card 060" loading="lazy">
+      <div class="info">
+        <span class="num">060</span>
+        <span class="fonts">Spoqa Han Sans Neo 700 + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="3" data-code="3" data-scale="3">
+      <img src="061_card.png" alt="Card 061" loading="lazy">
+      <div class="info">
+        <span class="num">061</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Serif KR 400 + D2Coding</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="4" data-code="0" data-scale="3">
+      <img src="062_card.png" alt="Card 062" loading="lazy">
+      <div class="info">
+        <span class="num">062</span>
+        <span class="fonts">Noto Sans KR 300 + IBM Plex Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="2" data-body="0" data-code="1" data-scale="3">
+      <img src="063_card.png" alt="Card 063" loading="lazy">
+      <div class="info">
+        <span class="num">063</span>
+        <span class="fonts">Noto Serif KR 700 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="3" data-body="1" data-code="2" data-scale="3">
+      <img src="064_card.png" alt="Card 064" loading="lazy">
+      <div class="info">
+        <span class="num">064</span>
+        <span class="fonts">Pretendard 700 + Pretendard 400 + Fira Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="4" data-body="2" data-code="3" data-scale="3">
+      <img src="065_card.png" alt="Card 065" loading="lazy">
+      <div class="info">
+        <span class="num">065</span>
+        <span class="fonts">Black Han Sans + Noto Sans KR 300 + D2Coding</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="5" data-body="3" data-code="0" data-scale="3">
+      <img src="066_card.png" alt="Card 066" loading="lazy">
+      <div class="info">
+        <span class="num">066</span>
+        <span class="fonts">IBM Plex Sans KR 600 + Noto Serif KR 400 + Cascadia Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="6" data-body="4" data-code="1" data-scale="3">
+      <img src="067_card.png" alt="Card 067" loading="lazy">
+      <div class="info">
+        <span class="num">067</span>
+        <span class="fonts">Gowun Dodum + IBM Plex Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="7" data-body="0" data-code="2" data-scale="3">
+      <img src="068_card.png" alt="Card 068" loading="lazy">
+      <div class="info">
+        <span class="num">068</span>
+        <span class="fonts">Do Hyeon + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="8" data-body="1" data-code="3" data-scale="3">
+      <img src="069_card.png" alt="Card 069" loading="lazy">
+      <div class="info">
+        <span class="num">069</span>
+        <span class="fonts">Nanum Myeongjo 700 + Pretendard 400 + D2Coding</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="9" data-body="2" data-code="0" data-scale="3">
+      <img src="070_card.png" alt="Card 070" loading="lazy">
+      <div class="info">
+        <span class="num">070</span>
+        <span class="fonts">Spoqa Han Sans Neo 700 + Noto Sans KR 300 + Cascadia Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="4" data-code="0" data-scale="4">
+      <img src="071_card.png" alt="Card 071" loading="lazy">
+      <div class="info">
+        <span class="num">071</span>
+        <span class="fonts">Noto Sans KR 700 + IBM Plex Sans KR 400 + Cascadia Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="1" data-body="0" data-code="1" data-scale="4">
+      <img src="072_card.png" alt="Card 072" loading="lazy">
+      <div class="info">
+        <span class="num">072</span>
+        <span class="fonts">Noto Sans KR 300 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="2" data-body="1" data-code="2" data-scale="4">
+      <img src="073_card.png" alt="Card 073" loading="lazy">
+      <div class="info">
+        <span class="num">073</span>
+        <span class="fonts">Noto Serif KR 700 + Pretendard 400 + Fira Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="3" data-body="2" data-code="3" data-scale="4">
+      <img src="074_card.png" alt="Card 074" loading="lazy">
+      <div class="info">
+        <span class="num">074</span>
+        <span class="fonts">Pretendard 700 + Noto Sans KR 300 + D2Coding</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="4" data-body="3" data-code="0" data-scale="4">
+      <img src="075_card.png" alt="Card 075" loading="lazy">
+      <div class="info">
+        <span class="num">075</span>
+        <span class="fonts">Black Han Sans + Noto Serif KR 400 + Cascadia Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="5" data-body="4" data-code="1" data-scale="4">
+      <img src="076_card.png" alt="Card 076" loading="lazy">
+      <div class="info">
+        <span class="num">076</span>
+        <span class="fonts">IBM Plex Sans KR 600 + IBM Plex Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="6" data-body="0" data-code="2" data-scale="4">
+      <img src="077_card.png" alt="Card 077" loading="lazy">
+      <div class="info">
+        <span class="num">077</span>
+        <span class="fonts">Gowun Dodum + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="7" data-body="1" data-code="3" data-scale="4">
+      <img src="078_card.png" alt="Card 078" loading="lazy">
+      <div class="info">
+        <span class="num">078</span>
+        <span class="fonts">Do Hyeon + Pretendard 400 + D2Coding</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="8" data-body="2" data-code="0" data-scale="4">
+      <img src="079_card.png" alt="Card 079" loading="lazy">
+      <div class="info">
+        <span class="num">079</span>
+        <span class="fonts">Nanum Myeongjo 700 + Noto Sans KR 300 + Cascadia Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="9" data-body="3" data-code="1" data-scale="4">
+      <img src="080_card.png" alt="Card 080" loading="lazy">
+      <div class="info">
+        <span class="num">080</span>
+        <span class="fonts">Spoqa Han Sans Neo 700 + Noto Serif KR 400 + JetBrains Mono</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="0" data-scale="1">
+      <img src="081_card.png" alt="Card 081" loading="lazy">
+      <div class="info">
+        <span class="num">081</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="0" data-scale="3">
+      <img src="082_card.png" alt="Card 082" loading="lazy">
+      <div class="info">
+        <span class="num">082</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Cascadia Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="0" data-scale="4">
+      <img src="083_card.png" alt="Card 083" loading="lazy">
+      <div class="info">
+        <span class="num">083</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Cascadia Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="1" data-scale="0">
+      <img src="084_card.png" alt="Card 084" loading="lazy">
+      <div class="info">
+        <span class="num">084</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="1" data-scale="1">
+      <img src="085_card.png" alt="Card 085" loading="lazy">
+      <div class="info">
+        <span class="num">085</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="1" data-scale="3">
+      <img src="086_card.png" alt="Card 086" loading="lazy">
+      <div class="info">
+        <span class="num">086</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="1" data-scale="4">
+      <img src="087_card.png" alt="Card 087" loading="lazy">
+      <div class="info">
+        <span class="num">087</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + JetBrains Mono</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="2" data-scale="0">
+      <img src="088_card.png" alt="Card 088" loading="lazy">
+      <div class="info">
+        <span class="num">088</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="2" data-scale="1">
+      <img src="089_card.png" alt="Card 089" loading="lazy">
+      <div class="info">
+        <span class="num">089</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="2" data-scale="3">
+      <img src="090_card.png" alt="Card 090" loading="lazy">
+      <div class="info">
+        <span class="num">090</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="2" data-scale="4">
+      <img src="091_card.png" alt="Card 091" loading="lazy">
+      <div class="info">
+        <span class="num">091</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + Fira Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="3" data-scale="0">
+      <img src="092_card.png" alt="Card 092" loading="lazy">
+      <div class="info">
+        <span class="num">092</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + D2Coding</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="3" data-scale="1">
+      <img src="093_card.png" alt="Card 093" loading="lazy">
+      <div class="info">
+        <span class="num">093</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + D2Coding</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="3" data-scale="3">
+      <img src="094_card.png" alt="Card 094" loading="lazy">
+      <div class="info">
+        <span class="num">094</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + D2Coding</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="0" data-code="3" data-scale="4">
+      <img src="095_card.png" alt="Card 095" loading="lazy">
+      <div class="info">
+        <span class="num">095</span>
+        <span class="fonts">Noto Sans KR 700 + Noto Sans KR 400 + D2Coding</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="0" data-scale="0">
+      <img src="096_card.png" alt="Card 096" loading="lazy">
+      <div class="info">
+        <span class="num">096</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + Cascadia Code</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="0" data-scale="1">
+      <img src="097_card.png" alt="Card 097" loading="lazy">
+      <div class="info">
+        <span class="num">097</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + Cascadia Code</span>
+        <span class="scale">Small</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="0" data-scale="3">
+      <img src="098_card.png" alt="Card 098" loading="lazy">
+      <div class="info">
+        <span class="num">098</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + Cascadia Code</span>
+        <span class="scale">Large</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="0" data-scale="4">
+      <img src="099_card.png" alt="Card 099" loading="lazy">
+      <div class="info">
+        <span class="num">099</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + Cascadia Code</span>
+        <span class="scale">XL</span>
+      </div>
+    </div>    <div class="card" data-heading="0" data-body="1" data-code="1" data-scale="0">
+      <img src="100_card.png" alt="Card 100" loading="lazy">
+      <div class="info">
+        <span class="num">100</span>
+        <span class="fonts">Noto Sans KR 700 + Pretendard 400 + JetBrains Mono</span>
+        <span class="scale">Compact</span>
+      </div>
+    </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" id="lbClose">&times;</div>
+  <img id="lbImg" src="" alt="Preview">
+</div>
+
+<script>
+(function() {
+  var cards = document.querySelectorAll('.card');
+  var selects = ['fHead','fBody','fCode','fScale'];
+  var attrs   = ['heading','body','code','scale'];
+
+  function applyFilters() {
+    var vals = selects.map(function(id) { return document.getElementById(id).value; });
+    var vis = 0;
+    cards.forEach(function(c) {
+      var show = true;
+      for (var i = 0; i < 4; i++) {
+        if (vals[i] !== 'all' && c.dataset[attrs[i]] !== vals[i]) show = false;
+      }
+      c.classList.toggle('hidden', !show);
+      if (show) vis++;
+    });
+    document.getElementById('visCount').textContent = vis;
+  }
+  selects.forEach(function(id) {
+    document.getElementById(id).addEventListener('change', applyFilters);
+  });
+
+  // Lightbox
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  cards.forEach(function(c) {
+    c.addEventListener('click', function() {
+      lbImg.src = c.querySelector('img').src;
+      lb.classList.add('active');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', function() {
+    lb.classList.remove('active');
+  });
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb) lb.classList.remove('active');
+  });
+})();
+</script>
+</body>
+</html>

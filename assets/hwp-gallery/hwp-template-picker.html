@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HWP Template Picker — GHOST Racing</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f172a;--sf:#1e293b;--sf2:#172554;--ac:#60a5fa;--acd:#1e40af;--tx:#e2e8f0;--txd:#94a3b8;--bd:#334155;--ok:#4ade80;--warn:#fbbf24;--purple:#a78bfa;--purpled:#7c3aed}
+body{background:var(--bg);color:var(--tx);font-family:'Noto Sans KR',system-ui,sans-serif;min-height:100vh}
+
+/* ── Nav Bar ── */
+.nav{display:flex;justify-content:center;gap:.5rem;padding:1rem 1rem .5rem;flex-wrap:wrap}
+.nav a{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;border:1px solid var(--bd);color:var(--txd);transition:all .15s}
+.nav a:hover{border-color:var(--ac);color:var(--ac)}
+.nav a.current{background:var(--acd);border-color:var(--acd);color:#fff}
+
+/* ── Header ── */
+.header{text-align:center;padding:1rem 1rem 1.5rem}
+.header h1{color:var(--purple);font-size:1.6rem;margin-bottom:.3rem}
+.header p{color:var(--txd);font-size:.9rem}
+
+/* ── Layout ── */
+.layout{display:grid;grid-template-columns:200px 1fr;gap:1.5rem;max-width:1200px;margin:0 auto;padding:0 1.5rem 2rem}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{display:flex;flex-wrap:wrap;gap:.5rem}}
+
+/* ── Sidebar ── */
+.sidebar{position:sticky;top:1rem;align-self:start}
+.search-box{width:100%;padding:.5rem .8rem;background:var(--bg);border:1px solid var(--bd);border-radius:8px;color:var(--tx);font-size:.85rem;margin-bottom:1rem;outline:none}
+.search-box:focus{border-color:var(--ac)}
+.cat-list{list-style:none}
+.cat-item{padding:.5rem .8rem;border-radius:8px;cursor:pointer;font-size:.85rem;color:var(--txd);transition:all .15s;display:flex;align-items:center;gap:.5rem;margin-bottom:2px}
+.cat-item:hover{background:var(--sf);color:var(--tx)}
+.cat-item.active{background:var(--purpled);color:#fff}
+.cat-item .cnt{margin-left:auto;font-size:.75rem;opacity:.6}
+
+/* ── Recent Section ── */
+.recent-section{margin-bottom:1.5rem}
+.recent-section h3{font-size:.85rem;color:var(--txd);margin-bottom:.5rem;font-weight:600}
+.recent-cards{display:flex;gap:.5rem;flex-wrap:wrap}
+.recent-card{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:.5rem .7rem;font-size:.78rem;color:var(--txd);cursor:pointer;transition:all .15s;max-width:180px}
+.recent-card:hover{border-color:var(--purple);color:var(--purple)}
+.recent-card .rc-name{font-weight:700;color:var(--tx);margin-bottom:2px}
+.recent-card .rc-date{font-size:.7rem;opacity:.6}
+
+/* ── Grid ── */
+.cat-header{font-size:1.1rem;font-weight:700;color:var(--purple);margin:1.5rem 0 .8rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd)}
+.cat-header:first-child{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1rem}
+
+/* ── Template Card ── */
+.tcard{background:var(--sf);border:2px solid var(--bd);border-radius:14px;padding:1.2rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.tcard:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:0 8px 32px rgba(167,139,250,.12)}
+.tcard.selected{border-color:var(--ok);box-shadow:0 0 0 3px rgba(74,222,128,.2)}
+.tcard-badge{position:absolute;top:10px;right:10px;padding:2px 8px;border-radius:999px;font-size:.7rem;font-weight:700;background:var(--purpled);color:#fff}
+.tcard-icon{font-size:1.5rem;margin-bottom:.3rem}
+.tcard-name{font-size:1rem;font-weight:700;color:var(--tx);margin-bottom:.3rem}
+.tcard-desc{font-size:.8rem;color:var(--txd);line-height:1.4;margin-bottom:.8rem}
+
+/* ── Preview Mockup (White bg for HWP) ── */
+.hwp-preview{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:.6rem;min-height:100px;margin-bottom:.8rem;position:relative}
+.hp-header{height:7px;border-radius:3px;margin-bottom:6px;background:#2563eb}
+.hp-subtitle{height:5px;border-radius:2px;margin-bottom:5px;background:#94a3b8;width:40%;opacity:.5}
+.hp-line{height:4px;border-radius:2px;margin-bottom:4px;background:#cbd5e1}
+.hp-table{display:grid;gap:2px;margin:6px 0;border:1px solid #e2e8f0;border-radius:3px;overflow:hidden}
+.hp-table-row{display:grid;gap:1px}
+.hp-cell{height:8px;background:#f1f5f9}
+.hp-cell.hdr{background:#eff6ff}
+.hp-cell.label{background:#dbeafe}
+.hp-bullet{display:flex;align-items:center;gap:4px;margin-bottom:3px}
+.hp-bullet-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
+.hp-bullet-line{height:3px;border-radius:1px;background:#cbd5e1;flex:1}
+.hp-tag{display:inline-block;width:6px;height:6px;border-radius:2px;margin-right:2px}
+.hp-divider{height:1px;background:#e2e8f0;margin:4px 0}
+.hp-badge{display:inline-block;padding:1px 4px;border-radius:2px;font-size:5px;font-weight:700}
+.hp-qa-block{border-left:2px solid #2563eb;padding-left:4px;margin:3px 0}
+
+/* ── Detail Example Page ── */
+.hwp-ex-page{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.2rem 1rem;margin:1rem 0;max-height:420px;overflow-y:auto;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.hwp-ex-page::-webkit-scrollbar{width:5px}
+.hwp-ex-page::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+.hwp-ex-sec{display:flex;gap:.5rem;margin-bottom:.5rem;align-items:flex-start}
+.hwp-ex-label{flex-shrink:0;width:72px;padding:2px 5px;border-radius:4px;background:#eff6ff;color:#2563eb;font-size:.6rem;font-weight:700;text-align:center;margin-top:1px;line-height:1.4}
+.hwp-ex-label.req{border:1px solid #93c5fd}
+.hwp-ex-body{flex:1;min-height:14px}
+.hwp-ex-title{font-size:.85rem;font-weight:700;color:#1e293b;text-align:center;padding:.4rem 0;border-bottom:2px solid #2563eb;margin-bottom:.4rem}
+.hwp-ex-text{font-size:.62rem;color:#64748b;line-height:1.5;margin:2px 0}
+.hwp-ex-tbl{width:100%;border-collapse:collapse;font-size:.58rem;margin:3px 0}
+.hwp-ex-tbl th{background:#eff6ff;border:1px solid #dbeafe;padding:2px 4px;font-weight:700;color:#1e40af;text-align:center}
+.hwp-ex-tbl td{border:1px solid #e2e8f0;padding:2px 4px;color:#475569;text-align:center}
+.hwp-ex-bul{display:flex;align-items:baseline;gap:4px;margin:2px 0;font-size:.6rem;color:#475569}
+.hwp-ex-bul::before{content:'●';color:#2563eb;font-size:.45rem;flex-shrink:0;line-height:1.8}
+.hwp-ex-qa{border-left:2px solid #2563eb;padding-left:6px;margin:3px 0}
+.hwp-ex-qa .eq{font-size:.6rem;font-weight:700;color:#1e40af}
+.hwp-ex-qa .ea{font-size:.58rem;color:#475569}
+.hwp-ex-badge{display:inline-block;padding:1px 8px;border-radius:3px;font-size:.6rem;font-weight:700}
+.hwp-ex-badge.pass{background:#dcfce7;color:#16a34a}
+.hwp-ex-tl{height:6px;background:linear-gradient(90deg,#2563eb,#60a5fa,#93c5fd);border-radius:3px;margin:4px 0}
+.hwp-ex-chk{display:flex;align-items:center;gap:4px;margin:2px 0;font-size:.6rem;color:#475569}
+.hwp-ex-chk::before{content:'☐';font-size:.7rem;color:#94a3b8;flex-shrink:0}
+.hwp-ex-div{height:1px;background:#e2e8f0;margin:4px 0}
+.hwp-ex-ba{display:flex;gap:6px;margin:3px 0}
+.hwp-ex-ba>div{flex:1;padding:3px;border-radius:3px;font-size:.55rem;text-align:center;font-weight:600}
+.hwp-ex-ba .bef{background:#fee2e2;color:#dc2626}
+.hwp-ex-ba .aft{background:#dcfce7;color:#16a34a}
+.hwp-ex-appr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin:3px 0}
+.hwp-ex-appr>div{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:2px;padding:4px;text-align:center;font-size:.55rem;color:#64748b;white-space:pre-line}
+.hwp-ex-form{background:#eff6ff;border:1px solid #dbeafe;border-radius:4px;padding:4px 8px;font-family:'Times New Roman',serif;font-size:.65rem;color:#1e40af;font-style:italic;margin:3px 0}
+.hwp-ex-sr{display:grid;grid-template-columns:70px 1fr;gap:1px;margin:3px 0}
+.hwp-ex-sr .sl{background:#eff6ff;padding:2px 5px;font-size:.58rem;font-weight:700;color:#1e40af;border:1px solid #dbeafe}
+.hwp-ex-sr .sv{background:#fff;padding:2px 5px;font-size:.58rem;color:#475569;border:1px solid #e2e8f0}
+.hwp-ex-hint{text-align:center;font-size:.7rem;color:#94a3b8;margin-bottom:.5rem}
+
+/* ── Tags ── */
+.tcard-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:.5rem}
+.feat-tag{display:inline-block;padding:1px 6px;border-radius:4px;background:var(--bg);font-size:.7rem;color:var(--txd);font-family:monospace}
+.tcard-meta{font-size:.75rem;color:var(--txd)}
+
+/* ── Detail Panel ── */
+.detail-panel{max-width:1200px;margin:1.5rem auto;background:var(--sf);border:2px solid var(--purple);border-radius:14px;padding:1.5rem;display:none}
+.detail-panel.active{display:block}
+.detail-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.detail-header h2{color:var(--purple);font-size:1.2rem}
+.detail-close{background:none;border:none;color:var(--txd);font-size:1.4rem;cursor:pointer}
+.detail-close:hover{color:var(--tx)}
+
+/* Section Checklist */
+.section-list{list-style:none;margin:1rem 0}
+.section-item{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;border-radius:6px;transition:background .1s}
+.section-item:hover{background:var(--bg)}
+.section-item input[type=checkbox]{accent-color:var(--purple);width:16px;height:16px;cursor:pointer}
+.section-item label{font-size:.9rem;cursor:pointer;flex:1}
+.section-item .req{font-size:.7rem;color:var(--warn);margin-left:.3rem}
+
+/* Options */
+.option-row{display:flex;align-items:center;gap:1rem;margin:1rem 0;padding:.8rem;background:var(--bg);border-radius:8px}
+.option-row label{font-size:.9rem;color:var(--txd)}
+.toggle{position:relative;width:40px;height:22px;cursor:pointer}
+.toggle input{display:none}
+.toggle-slider{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bd);border-radius:11px;transition:.2s}
+.toggle input:checked+.toggle-slider{background:var(--purpled)}
+.toggle-slider::before{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.toggle-slider::before{transform:translateX(18px)}
+
+/* Result */
+.result-section{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bd)}
+.result-section pre{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:1rem;font-size:.8rem;overflow-x:auto;max-height:250px;color:var(--tx);font-family:'JetBrains Mono','Cascadia Code',monospace;white-space:pre-wrap}
+.result-actions{display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap}
+.result-actions button{padding:.5rem 1.2rem;border:none;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-select{background:var(--purpled);color:#fff}.btn-select:hover{background:var(--purple)}
+.btn-copy{background:var(--acd);color:#fff}.btn-copy:hover{background:var(--ac)}
+.btn-guide{background:var(--sf2);color:var(--ac);border:1px solid var(--bd)!important}.btn-guide:hover{border-color:var(--ac)!important}
+
+/* Toast */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--ok);color:#000;padding:.6rem 1.5rem;border-radius:8px;font-size:.9rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* ── Quick-Pick Mode ── */
+.qp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;padding:0 1.5rem 2rem}
+@media(max-width:800px){.qp-cards{grid-template-columns:1fr}}
+.qp-card{background:var(--sf);border:2px solid var(--bd);border-radius:16px;padding:1.5rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.qp-card:hover{border-color:var(--purple);transform:translateY(-4px);box-shadow:0 8px 32px rgba(167,139,250,.15)}
+.qp-card.selected{border-color:var(--ok);box-shadow:0 0 0 3px rgba(74,222,128,.2)}
+.qp-badge{position:absolute;top:12px;right:12px;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700}
+.badge-a{background:#60a5fa22;color:#60a5fa}
+.badge-b{background:#fbbf2422;color:#fbbf24}
+.badge-c{background:#4ade8022;color:#4ade80}
+.qp-label{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;color:var(--purple)}
+.qp-desc{font-size:.85rem;color:var(--txd);margin-bottom:1rem;line-height:1.5}
+.qp-select{display:block;width:100%;padding:.7rem;background:var(--purpled);color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .15s;margin-top:.8rem}
+.qp-select:hover{background:var(--purple)}
+.qp-card.selected .qp-select{background:#16a34a}
+.qp-result{max-width:1100px;margin:2rem auto;background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:1.2rem;display:none}
+.qp-result.active{display:block}
+.qp-result h3{color:var(--purple);font-size:1rem;margin-bottom:.5rem}
+
+/* ── No Data ── */
+.no-data{text-align:center;padding:3rem;color:var(--txd);display:none}
+.no-data textarea{width:100%;max-width:600px;height:200px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;color:var(--tx);padding:1rem;font-family:monospace;font-size:.85rem;margin-top:1rem;resize:vertical}
+.no-data button{margin-top:1rem;padding:.6rem 2rem;background:var(--purpled);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer}
+
+.footer{text-align:center;color:var(--txd);font-size:.8rem;padding:2rem 1rem 1rem}
+</style>
+</head>
+<body>
+
+<!-- Nav Bar -->
+<div class="nav">
+<a href="../design-gallery/template-picker.html">HTML Picker</a>
+<a href="../ppt-gallery/preset-picker.html">PPT Picker</a>
+<a href="#" class="current">HWP Picker</a>
+<a href="../transcribe/transcribe-launcher.html">Transcribe</a>
+</div>
+
+<!-- Header -->
+<div class="header">
+<h1>HWP Template Picker</h1>
+<p id="header-desc"></p>
+</div>
+
+<!-- Gallery Mode -->
+<div id="gallery-mode" style="display:none">
+<div class="layout">
+<!-- Sidebar -->
+<div class="sidebar">
+<input type="text" class="search-box" id="search-input" placeholder="Search...">
+<div id="recent-section" class="recent-section" style="display:none">
+<h3>Recent</h3>
+<div class="recent-cards" id="recent-cards"></div>
+</div>
+<ul class="cat-list" id="cat-list"></ul>
+</div>
+<!-- Main Grid -->
+<div id="main-grid"></div>
+</div>
+<!-- Detail Panel -->
+<div class="detail-panel" id="detail-panel">
+<div class="detail-header">
+<h2 id="detail-title"></h2>
+<button class="detail-close" id="detail-close">&times;</button>
+</div>
+<div id="detail-body"></div>
+</div>
+</div>
+
+<!-- Quick-Pick Mode -->
+<div id="quickpick-mode" style="display:none">
+<div class="qp-cards" id="qp-cards"></div>
+<div class="qp-result" id="qp-result">
+<h3 id="qp-result-title"></h3>
+<pre id="qp-result-json"></pre>
+<div class="result-actions">
+<button class="btn-copy" id="qp-copy-btn" onclick="copyQPResult()"></button>
+<button class="btn-guide" id="qp-gallery-btn" onclick="switchToGallery()"></button>
+</div>
+</div>
+</div>
+
+<!-- No Data (Quick-Pick fallback) -->
+<div id="no-data" class="no-data">
+<p>URL data not found. Paste JSON below.</p>
+<textarea id="manual-input" placeholder='{"mode":"quick-pick","previous":{...},"recommended":{...}}'></textarea>
+<br><button onclick="loadManualData()">Load</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<div class="footer">GHOST Racing — HWP Template Picker v2.0 (42 templates)</div>
+
+<script>
+/* ── Helpers ── */
+function _mk(tag, cls) {
+  var el = document.createElement(tag);
+  if (cls) el.className = cls;
+  return el;
+}
+function _txt(tag, cls, text) {
+  var el = _mk(tag, cls);
+  el.textContent = text;
+  return el;
+}
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2000);
+}
+
+/* ── Template Data ── */
+var TEMPLATES = [
+  // ─── 보고서 (reports) ───
+  {
+    id: 'session-report', category: 'reports',
+    name: '세션 리포트', icon: '📋',
+    description: '작업 내역, 진행률, 의사결정, TODO 정리',
+    procedure: 1, script: 'create_session_report_hwp.py',
+    sections: [
+      { id: 'title', label: '제목 + 부제', required: true },
+      { id: 'info_table', label: '기본 정보 테이블', required: true },
+      { id: 'summary', label: '세션 요약 (태그 불릿)', required: true },
+      { id: 'stats', label: '통계 행', required: false },
+      { id: 'details', label: '상세 작업 내용', required: true },
+      { id: 'phases', label: 'Phase 진행 현황', required: false },
+      { id: 'decisions', label: '의사결정 현황', required: false },
+      { id: 'references', label: '참고자료', required: false },
+      { id: 'files', label: '변경 파일', required: false },
+      { id: 'todos', label: '다음 세션 TODO', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'tagged-bullets', 'color-coded', 'before-after'],
+    usage_count: 50
+  },
+  {
+    id: 'design-report', category: 'reports',
+    name: '설계보고서', icon: '📐',
+    description: 'FSK 설계비교보고서, 재료/해석/도면',
+    procedure: 1, script: 'create_session_report_hwp.py',
+    sections: [
+      { id: 'title', label: '제목 + 부제', required: true },
+      { id: 'info_table', label: '기본 정보 테이블', required: true },
+      { id: 'design_overview', label: '설계 개요', required: true },
+      { id: 'material_spec', label: '재료 사양', required: true },
+      { id: 'analysis_results', label: '해석 결과', required: true },
+      { id: 'drawings_ref', label: '도면 참조', required: false },
+      { id: 'verdict', label: '판정 (PASS/FAIL)', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'drawings-ref', 'verdict'],
+    usage_count: 3
+  },
+  {
+    id: 'fea-analysis', category: 'reports',
+    name: 'FEA 분석 보고서', icon: '🔬',
+    description: '응력, Before/After, Kt/Kf, PASS/FAIL',
+    procedure: 1, script: 'create_session_report_hwp.py',
+    sections: [
+      { id: 'title', label: '제목 + 부제', required: true },
+      { id: 'info_table', label: '기본 정보 테이블', required: true },
+      { id: 'summary', label: '분석 요약', required: true },
+      { id: 'stress_table', label: '응력 결과 테이블', required: true },
+      { id: 'before_after', label: 'Before/After 비교', required: true },
+      { id: 'ktf_calc', label: 'Kt/Kf 계산', required: false },
+      { id: 'verdict', label: '판정 (PASS/FAIL)', required: true },
+      { id: 'recommendations', label: '개선 권고', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'before-after', 'stress-data', 'color-verdict'],
+    usage_count: 5
+  },
+  {
+    id: 'progress-report', category: 'reports',
+    name: '중간보고서', icon: '📊',
+    description: '마일스톤 진행, 이슈, 다음 단계',
+    procedure: 1, script: 'create_session_report_hwp.py',
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'info_table', label: '기본 정보', required: true },
+      { id: 'milestones', label: '마일스톤 현황', required: true },
+      { id: 'issues', label: '이슈 목록', required: true },
+      { id: 'next_steps', label: '다음 단계', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'milestone', 'progress-bar'],
+    usage_count: 0
+  },
+  {
+    id: 'result-report', category: 'reports',
+    name: '결과보고서', icon: '🏁',
+    description: '최종 결과, 산출물, 교훈',
+    procedure: 1, script: 'create_session_report_hwp.py',
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'info_table', label: '기본 정보', required: true },
+      { id: 'summary', label: '결과 요약', required: true },
+      { id: 'deliverables', label: '산출물 목록', required: true },
+      { id: 'lessons', label: '교훈 및 시사점', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'summary', 'deliverables'],
+    usage_count: 0
+  },
+  {
+    id: 'weekly-report', category: 'reports',
+    name: '주간보고서', icon: '📊',
+    description: '주간 요약, 핵심 지표, 완료/진행중, 이슈, 다음 주 계획',
+    procedure: 1, script: 'create_hwp_from_template.py --template weekly-report',
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'meta', label: '보고 정보', required: true },
+      { id: 'summary', label: '주간 요약', required: true },
+      { id: 'stats', label: '핵심 지표', required: false },
+      { id: 'completed', label: '완료 항목', required: true },
+      { id: 'in_progress', label: '진행중 항목', required: true },
+      { id: 'issues', label: '이슈/리스크', required: false },
+      { id: 'next_week', label: '다음 주 계획', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'tagged-bullets', 'checklist', 'metrics'],
+    usage_count: 0
+  },
+  {
+    id: 'test-report', category: 'reports',
+    name: '시험보고서', icon: '🧪',
+    description: '시험 조건, 결과 데이터, 합격 판정',
+    procedure: 1, script: 'create_session_report_hwp.py',
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'info_table', label: '시험 정보', required: true },
+      { id: 'conditions', label: '시험 조건', required: true },
+      { id: 'data_table', label: '결과 데이터', required: true },
+      { id: 'verdict', label: '합격 판정', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'data-grid', 'verdict'],
+    usage_count: 0
+  },
+  // ─── 회의록 (meetings) ───
+  {
+    id: 'meeting-regular', category: 'meetings',
+    name: '정기회의록', icon: '👥',
+    description: '참석자, 안건, 결정사항, 타임스탬프',
+    procedure: 2, script: 'create_meeting_docs.py',
+    sections: [
+      { id: 'title', label: '회의 제목', required: true },
+      { id: 'meta', label: '날짜 / 참석자 / 안건', required: true },
+      { id: 'agenda', label: '안건 불릿 리스트', required: true },
+      { id: 'discussion', label: '논의 내용 (타임스탬프)', required: true },
+      { id: 'decisions', label: '결정사항 테이블', required: true },
+      { id: 'action_items', label: '액션 아이템', required: false },
+      { id: 'next_meeting', label: '다음 회의', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'timestamps', 'attendees'],
+    usage_count: 2
+  },
+  {
+    id: 'meeting-brainstorm', category: 'meetings',
+    name: '브레인스토밍', icon: '💡',
+    description: '아이디어 수집, 분류, 투표, 우선순위',
+    procedure: 2, script: 'create_meeting_docs.py',
+    sections: [
+      { id: 'title', label: '주제', required: true },
+      { id: 'meta', label: '날짜 / 참석자', required: true },
+      { id: 'ideas', label: '아이디어 목록', required: true },
+      { id: 'categories', label: '분류/그룹핑', required: false },
+      { id: 'voting', label: '투표 결과', required: false },
+      { id: 'priority', label: '우선순위 정리', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'idea-cards', 'voting'],
+    usage_count: 0
+  },
+  {
+    id: 'meeting-decision', category: 'meetings',
+    name: '의사결정 회의', icon: '⚖️',
+    description: '안건별 의견, 투표 결과, 결론',
+    procedure: 2, script: 'create_meeting_docs.py',
+    sections: [
+      { id: 'title', label: '안건', required: true },
+      { id: 'meta', label: '날짜 / 참석자', required: true },
+      { id: 'options', label: '선택지 비교', required: true },
+      { id: 'pros_cons', label: '장단점 분석', required: true },
+      { id: 'vote_result', label: '투표/결론', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'pros-cons', 'verdict'],
+    usage_count: 0
+  },
+  {
+    id: 'meeting-kickoff', category: 'meetings',
+    name: '킥오프 회의', icon: '🚀',
+    description: '프로젝트 범위, 일정, 역할 분담',
+    procedure: 2, script: 'create_meeting_docs.py',
+    sections: [
+      { id: 'title', label: '프로젝트명', required: true },
+      { id: 'meta', label: '날짜 / 참석자', required: true },
+      { id: 'scope', label: '프로젝트 범위', required: true },
+      { id: 'timeline', label: '일정 개요', required: true },
+      { id: 'roles', label: '역할 분담', required: true },
+      { id: 'risks', label: '리스크', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'timeline', 'team-list'],
+    usage_count: 0
+  },
+  {
+    id: 'meeting-retrospective', category: 'meetings',
+    name: '스프린트 회고', icon: '🔄',
+    description: '잘된 점, 개선점, 액션아이템',
+    procedure: 2, script: 'create_meeting_docs.py',
+    sections: [
+      { id: 'title', label: '스프린트 제목', required: true },
+      { id: 'meta', label: '날짜 / 참석자', required: true },
+      { id: 'good', label: '잘된 점', required: true },
+      { id: 'improve', label: '개선할 점', required: true },
+      { id: 'actions', label: '액션 아이템', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', '3-column', 'action-items'],
+    usage_count: 0
+  },
+  {
+    id: 'meeting-capstone', category: 'meetings',
+    name: '캡스톤 회의', icon: '🛠️',
+    description: '교수 피드백, 진행보고, 과제',
+    procedure: 2, script: 'create_meeting_docs.py',
+    sections: [
+      { id: 'title', label: '회의 제목', required: true },
+      { id: 'meta', label: '날짜 / 참석자 / 교수', required: true },
+      { id: 'progress', label: '진행 보고', required: true },
+      { id: 'feedback', label: '교수 피드백', required: true },
+      { id: 'assignments', label: '과제/TODO', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'formal', 'academic'],
+    usage_count: 0
+  },
+  {
+    id: 'meeting-formal', category: 'meetings',
+    name: '공식 회의록', icon: '📝',
+    description: '안건, 발언 기록, 결정사항, 후속 조치, 서명란 포함',
+    procedure: 2, script: 'create_hwp_from_template.py --template meeting-formal',
+    sections: [
+      { id: 'title', label: '회의 제목', required: true },
+      { id: 'meta', label: '회의 정보', required: true },
+      { id: 'agenda', label: '안건 목록', required: true },
+      { id: 'discussion', label: '발언 기록', required: true },
+      { id: 'decisions', label: '결정 사항', required: true },
+      { id: 'action_items', label: '후속 조치', required: true },
+      { id: 'approval', label: '서명란', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'timestamps', 'attendees', 'approval'],
+    usage_count: 0
+  },
+  // ─── 수업/학습 (academic) ───
+  {
+    id: 'lecture-notes', category: 'academic',
+    name: '강의노트', icon: '📖',
+    description: '이전 수업 요약 → 핵심 개념 카드 → 요약/키워드/과제 → 접이식 전사',
+    procedure: 3, script: 'create_lecture_hwp.py',
+    sections: [
+      { id: 'title', label: '과목명 + 주제 (그라디언트 헤더)', required: true },
+      { id: 'meta', label: '날짜 / 소스 / 길이 / 화자 (스탯 카드)', required: true },
+      { id: 'concepts', label: '핵심 개념 (컬러 카드, 제목+설명)', required: true },
+      { id: 'formulas', label: '수식 / 공식', required: false },
+      { id: 'examples', label: '예제 / 풀이', required: false },
+      { id: 'summary_table', label: '요약 테이블 (항목/설명/비고)', required: true },
+      { id: 'questions', label: '질문 사항', required: false },
+      { id: 'transcript', label: '수업 전사 (접이식, 발언 수 뱃지)', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'concept-box', 'formulas', 'collapsible', 'prev-class'],
+    usage_count: 7
+  },
+  {
+    id: 'lab-report', category: 'academic',
+    name: '실험보고서', icon: '🔭',
+    description: '목적→절차→결과→분석→결론',
+    procedure: 3, script: 'create_lecture_hwp.py',
+    sections: [
+      { id: 'title', label: '실험 제목', required: true },
+      { id: 'meta', label: '날짜 / 과목 / 조', required: true },
+      { id: 'purpose', label: '실험 목적', required: true },
+      { id: 'procedure', label: '실험 절차', required: true },
+      { id: 'data_table', label: '결과 데이터', required: true },
+      { id: 'analysis', label: '분석', required: true },
+      { id: 'conclusion', label: '결론', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'data-grid', 'conclusion'],
+    usage_count: 0
+  },
+  {
+    id: 'assignment-report', category: 'academic',
+    name: '과제보고서', icon: '📝',
+    description: '문제 분석, 풀이 과정, 결과',
+    procedure: 3, script: 'create_lecture_hwp.py',
+    sections: [
+      { id: 'title', label: '과제 제목', required: true },
+      { id: 'meta', label: '과목 / 학번 / 이름', required: true },
+      { id: 'problem', label: '문제 분석', required: true },
+      { id: 'solution', label: '풀이 과정', required: true },
+      { id: 'result', label: '결과', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'step-by-step', 'formulas'],
+    usage_count: 0
+  },
+  {
+    id: 'exam-summary', category: 'academic',
+    name: '시험정리', icon: '📑',
+    description: '핵심 정의, 공식 모음, 기출 분석',
+    procedure: 3, script: 'create_lecture_hwp.py',
+    sections: [
+      { id: 'title', label: '과목 / 시험 종류', required: true },
+      { id: 'definitions', label: '핵심 정의', required: true },
+      { id: 'formula_list', label: '공식 모음', required: true },
+      { id: 'past_analysis', label: '기출 분석', required: false },
+      { id: 'highlights', label: '중요 포인트', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'formula-list', 'highlight'],
+    usage_count: 0
+  },
+  {
+    id: 'paper-review', category: 'academic',
+    name: '논문리뷰', icon: '📄',
+    description: '요약, 강점/약점, 적용 가능성',
+    procedure: 5, script: 'create_sc22_qa_hwp.py',
+    sections: [
+      { id: 'title', label: '논문 제목', required: true },
+      { id: 'meta', label: '저자 / 학회 / 연도', required: true },
+      { id: 'abstract', label: '요약', required: true },
+      { id: 'strengths', label: '강점', required: true },
+      { id: 'weaknesses', label: '약점', required: true },
+      { id: 'applicability', label: '적용 가능성', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'pros-cons', 'citations'],
+    usage_count: 0
+  },
+  {
+    id: 'study-guide', category: 'academic',
+    name: '학습가이드', icon: '📚',
+    description: '챕터별 요약, Q&A, 체크리스트',
+    procedure: 3, script: 'create_lecture_hwp.py',
+    sections: [
+      { id: 'title', label: '과목 / 범위', required: true },
+      { id: 'chapters', label: '챕터별 요약', required: true },
+      { id: 'qa', label: 'Q&A', required: false },
+      { id: 'checklist', label: '학습 체크리스트', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'checklist', 'bullet-list'],
+    usage_count: 0
+  },
+  // ─── 제안서/기획서 (proposals) ───
+  {
+    id: 'project-proposal', category: 'proposals',
+    name: '프로젝트 제안서', icon: '📋',
+    description: '목표, 범위, 방법론, 일정, 예산',
+    procedure: 6, script: 'create_capstone_proposal_hwp.py',
+    sections: [
+      { id: 'title', label: '제안서 제목', required: true },
+      { id: 'overview', label: '프로젝트 개요', required: true },
+      { id: 'objectives', label: '목표 및 범위', required: true },
+      { id: 'methodology', label: '방법론', required: true },
+      { id: 'schedule', label: '일정 테이블', required: true },
+      { id: 'budget', label: '예산 테이블', required: false },
+      { id: 'deliverables', label: '산출물', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'gantt-style', 'budget-table'],
+    usage_count: 4
+  },
+  {
+    id: 'capstone-proposal', category: 'proposals',
+    name: '캡스톤 제안서', icon: '🎓',
+    description: '학술 프로젝트, 팀 구성, 산출물',
+    procedure: 6, script: 'create_capstone_proposal_hwp.py',
+    sections: [
+      { id: 'title', label: '프로젝트명', required: true },
+      { id: 'overview', label: '개요', required: true },
+      { id: 'team', label: '팀 구성', required: true },
+      { id: 'schedule', label: '일정', required: true },
+      { id: 'deliverables', label: '산출물', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'team-list', 'deliverables'],
+    usage_count: 0
+  },
+  {
+    id: 'sponsor-proposal', category: 'proposals',
+    name: '스폰서 제안서', icon: '🤝',
+    description: '팀 소개, 후원 혜택, ROI',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '제안서 제목', required: true },
+      { id: 'team_intro', label: '팀 소개', required: true },
+      { id: 'benefits', label: '후원 혜택', required: true },
+      { id: 'tiers', label: '후원 등급', required: true },
+      { id: 'logo_space', label: '로고 노출 안내', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'benefit-list', 'logo-space'],
+    usage_count: 0
+  },
+  {
+    id: 'budget-request', category: 'proposals',
+    name: '예산 요청서', icon: '💰',
+    description: '항목별 비용, 근거, 총액',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'purpose', label: '요청 사유', required: true },
+      { id: 'budget_table', label: '항목별 비용', required: true },
+      { id: 'justification', label: '근거', required: true },
+      { id: 'total', label: '총액 요약', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'budget-table', 'justification'],
+    usage_count: 0
+  },
+  {
+    id: 'tech-spec', category: 'proposals',
+    name: '기술 사양서', icon: '⚙️',
+    description: '시스템 구조, 기능, 요구사항',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'architecture', label: '시스템 구조', required: true },
+      { id: 'features', label: '기능 명세', required: true },
+      { id: 'requirements', label: '요구사항', required: true },
+      { id: 'diagram_ref', label: '다이어그램 참조', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'spec-grid', 'diagram-ref'],
+    usage_count: 0
+  },
+  // ─── 공문서 (official) ───
+  {
+    id: 'official-letter', category: 'official',
+    name: '공문 (표준)', icon: '🏛️',
+    description: '수신/발신, 본문, 결재란',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '문서 제목', required: true },
+      { id: 'sender_receiver', label: '수신 / 발신', required: true },
+      { id: 'body', label: '본문', required: true },
+      { id: 'attachments', label: '첨부 문서', required: false },
+      { id: 'approval', label: '결재란', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'formal-layout', 'approval-table'],
+    usage_count: 0
+  },
+  {
+    id: 'approval-form', category: 'official',
+    name: '품의서', icon: '✅',
+    description: '결재 요청, 예산 승인, 근거',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '품의 제목', required: true },
+      { id: 'request', label: '요청 내용', required: true },
+      { id: 'budget_line', label: '예산 항목', required: true },
+      { id: 'justification', label: '근거', required: true },
+      { id: 'approval', label: '결재란', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'approval-table', 'budget-line'],
+    usage_count: 0
+  },
+  {
+    id: 'cooperation-req', category: 'official',
+    name: '협조전', icon: '📨',
+    description: '부서간 협조 요청, 사유',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'sender_receiver', label: '수신 / 발신', required: true },
+      { id: 'reason', label: '협조 사유', required: true },
+      { id: 'request_detail', label: '요청 사항', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'formal-layout', 'header-block'],
+    usage_count: 0
+  },
+  {
+    id: 'announcement', category: 'official',
+    name: '공고문', icon: '📢',
+    description: '이벤트/모집 공지, 기한',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '공고 제목', required: true },
+      { id: 'body', label: '공고 내용', required: true },
+      { id: 'deadline', label: '기한/일정', required: true },
+      { id: 'contact', label: '문의처', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'highlight', 'deadline'],
+    usage_count: 0
+  },
+  {
+    id: 'certificate', category: 'official',
+    name: '확인서/증명서', icon: '🏅',
+    description: '참여/이수/활동 확인',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '증명서 제목', required: true },
+      { id: 'body', label: '확인 내용', required: true },
+      { id: 'signature', label: '서명/직인', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['formal-layout', 'signature', 'stamp'],
+    usage_count: 0
+  },
+  // ─── 분석/연구 (research) ───
+  {
+    id: 'research-qa', category: 'research',
+    name: 'Q&A 분석', icon: '💬',
+    description: 'Q/A 쌍 블록, 우선순위, 액션',
+    procedure: 5, script: 'create_sc22_qa_hwp.py',
+    sections: [
+      { id: 'title', label: '제목 + 대상 문서', required: true },
+      { id: 'meta', label: '날짜 / 분석자', required: true },
+      { id: 'qa_pairs', label: 'Q&A 항목', required: true },
+      { id: 'priority_table', label: '우선순위 테이블', required: false },
+      { id: 'insights', label: '핵심 인사이트', required: true },
+      { id: 'references', label: '참고문헌', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'qa-blocks', 'priority-colors'],
+    usage_count: 3
+  },
+  {
+    id: 'tech-research', category: 'research',
+    name: '기술 리서치', icon: '🔍',
+    description: '문헌 조사, 방법론, 결론',
+    procedure: 5, script: 'create_sc22_qa_hwp.py',
+    sections: [
+      { id: 'title', label: '리서치 주제', required: true },
+      { id: 'meta', label: '날짜 / 연구자', required: true },
+      { id: 'literature', label: '문헌 조사', required: true },
+      { id: 'methodology', label: '방법론', required: true },
+      { id: 'findings', label: '발견 사항', required: true },
+      { id: 'conclusion', label: '결론', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'citations', 'methodology'],
+    usage_count: 0
+  },
+  {
+    id: 'benchmark', category: 'research',
+    name: '벤치마크 분석', icon: '📏',
+    description: '경쟁 솔루션 비교, 장단점',
+    procedure: 5, script: 'create_sc22_qa_hwp.py',
+    sections: [
+      { id: 'title', label: '벤치마크 주제', required: true },
+      { id: 'targets', label: '비교 대상', required: true },
+      { id: 'comparison', label: '비교 테이블', required: true },
+      { id: 'pros_cons', label: '장단점', required: true },
+      { id: 'recommendation', label: '권고', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'comparison-grid', 'rating'],
+    usage_count: 0
+  },
+  {
+    id: 'case-study', category: 'research',
+    name: '사례 분석', icon: '📂',
+    description: '실제 적용, 교훈, 시사점',
+    procedure: 5, script: 'create_sc22_qa_hwp.py',
+    sections: [
+      { id: 'title', label: '사례 제목', required: true },
+      { id: 'background', label: '배경', required: true },
+      { id: 'implementation', label: '적용 과정', required: true },
+      { id: 'results', label: '결과', required: true },
+      { id: 'lessons', label: '교훈/시사점', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'timeline', 'lessons'],
+    usage_count: 0
+  },
+  {
+    id: 'paper-analysis', category: 'research',
+    name: '논문 분석', icon: '🔬',
+    description: '초록, 방법론, 발견, 평가',
+    procedure: 5, script: 'create_sc22_qa_hwp.py',
+    sections: [
+      { id: 'title', label: '논문 제목', required: true },
+      { id: 'meta', label: '저자 / 학회 / 연도', required: true },
+      { id: 'abstract', label: '초록 요약', required: true },
+      { id: 'methodology', label: '방법론', required: true },
+      { id: 'findings', label: '주요 발견', required: true },
+      { id: 'critique', label: '비판적 평가', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'abstract', 'critique'],
+    usage_count: 0
+  },
+  // ─── 일정/계획 (planning) ───
+  {
+    id: 'daily-design-log', category: 'planning',
+    name: '일일 설계 기록', icon: '📓',
+    description: '타임라인, 의사결정, 이슈, 수치변경, 파라미터 스냅샷',
+    procedure: 1, script: 'daily-design-log-generator.py',
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'meta', label: '기본 정보', required: true },
+      { id: 'objectives', label: '오늘 작업 목표', required: true },
+      { id: 'params_snapshot', label: '차량 파라미터', required: false },
+      { id: 'timeline', label: '시간대별 작업 로그', required: true },
+      { id: 'decisions', label: '설계 의사결정', required: true },
+      { id: 'issues', label: '이슈/블로커', required: false },
+      { id: 'changes', label: '수치 변경 이력', required: false },
+      { id: 'todos', label: '내일 할 일', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'tagged-bullets', 'timeline', 'before-after', 'checklist'],
+    usage_count: 0
+  },
+  {
+    id: 'research-notebook', category: 'planning',
+    name: '연구노트', icon: '🔬',
+    description: '연구 목적, 실험 방법, 데이터, 결과, 서명란',
+    procedure: 2, script: 'create_hwp_from_template.py --template research-notebook',
+    sections: [
+      { id: 'title', label: '제목', required: true },
+      { id: 'meta', label: '연구 정보', required: true },
+      { id: 'objective', label: '연구 목적/배경', required: true },
+      { id: 'method', label: '실험/해석 방법', required: true },
+      { id: 'data', label: '데이터 기록', required: true },
+      { id: 'results', label: '결과 및 분석', required: true },
+      { id: 'conclusions', label: '결론/시사점', required: true },
+      { id: 'references', label: '참고문헌', required: false },
+      { id: 'approval', label: '서명란', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'numbered-list', 'approval', 'formal'],
+    usage_count: 0
+  },
+  {
+    id: 'masterplan', category: 'planning',
+    name: '마스터플랜', icon: '🗺️',
+    description: '전체 타임라인, 마일스톤',
+    procedure: 6, script: 'create_masterplan_hwp.py',
+    sections: [
+      { id: 'title', label: '플랜 제목', required: true },
+      { id: 'overview', label: '프로젝트 개요', required: true },
+      { id: 'timeline', label: '타임라인 테이블', required: true },
+      { id: 'milestones', label: '마일스톤', required: true },
+      { id: 'resources', label: '자원 및 예산', required: false },
+      { id: 'risks', label: '리스크 관리', required: false },
+      { id: 'details', label: '상세 섹션', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'timeline-bar', 'milestones'],
+    usage_count: 1
+  },
+  {
+    id: 'wbs', category: 'planning',
+    name: 'WBS (작업분류)', icon: '🏗️',
+    description: '작업 분해, 담당자, 자원',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '프로젝트명', required: true },
+      { id: 'wbs_table', label: 'WBS 테이블', required: true },
+      { id: 'assignments', label: '담당자 배정', required: true },
+      { id: 'resources', label: '자원 계획', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'hierarchy', 'assignment'],
+    usage_count: 0
+  },
+  {
+    id: 'sprint-plan', category: 'planning',
+    name: '스프린트 계획', icon: '🏃',
+    description: '2주 목표, 백로그, 우선순위',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '스프린트 번호/기간', required: true },
+      { id: 'goals', label: '스프린트 목표', required: true },
+      { id: 'backlog', label: '백로그 테이블', required: true },
+      { id: 'priority', label: '우선순위 정렬', required: true },
+      { id: 'checklist', label: '완료 체크리스트', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'priority-colors', 'checklist'],
+    usage_count: 0
+  },
+  {
+    id: 'schedule', category: 'planning',
+    name: '일정표', icon: '📆',
+    description: '날짜별 일정, 마감, 이벤트',
+    procedure: 6, script: null,
+    sections: [
+      { id: 'title', label: '일정표 제목', required: true },
+      { id: 'calendar', label: '날짜별 일정', required: true },
+      { id: 'deadlines', label: '마감 목록', required: true },
+      { id: 'events', label: '이벤트', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'calendar-grid', 'deadline'],
+    usage_count: 0
+  },
+  // ─── 전사/기록 (transcription) ───
+  {
+    id: 'transcript', category: 'transcription',
+    name: '전사록', icon: '🎙️',
+    description: '타임스탬프별 발언, 화자 구분',
+    procedure: 4, script: null,
+    sections: [
+      { id: 'title', label: '전사 제목', required: true },
+      { id: 'meta', label: '날짜 / 참석자', required: true },
+      { id: 'transcript', label: '전사 본문', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['timestamps', 'speaker-label'],
+    usage_count: 0
+  },
+  {
+    id: 'interview-record', category: 'transcription',
+    name: '인터뷰 기록', icon: '🎤',
+    description: '질문/응답 쌍, 메모',
+    procedure: 4, script: null,
+    sections: [
+      { id: 'title', label: '인터뷰 제목', required: true },
+      { id: 'meta', label: '날짜 / 인터뷰이', required: true },
+      { id: 'qa_pairs', label: '질문/응답', required: true },
+      { id: 'notes', label: '메모', required: false },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['qa-blocks', 'notes'],
+    usage_count: 0
+  },
+  {
+    id: 'seminar-notes', category: 'transcription',
+    name: '세미나 기록', icon: '🎓',
+    description: '발표자, 주제, 핵심 내용',
+    procedure: 4, script: null,
+    sections: [
+      { id: 'title', label: '세미나 제목', required: true },
+      { id: 'meta', label: '날짜 / 발표자 / 장소', required: true },
+      { id: 'topics', label: '주제별 내용', required: true },
+      { id: 'takeaways', label: '핵심 요점', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'bullet-list', 'takeaways'],
+    usage_count: 0
+  },
+  {
+    id: 'conference-notes', category: 'transcription',
+    name: '컨퍼런스 노트', icon: '🌐',
+    description: '세션별 요약, 인사이트',
+    procedure: 4, script: null,
+    sections: [
+      { id: 'title', label: '컨퍼런스명', required: true },
+      { id: 'meta', label: '날짜 / 장소', required: true },
+      { id: 'sessions', label: '세션별 요약', required: true },
+      { id: 'insights', label: '핵심 인사이트', required: true },
+      { id: 'footer', label: '푸터', required: true }
+    ],
+    features: ['tables', 'multi-session', 'insights'],
+    usage_count: 0
+  }
+];
+
+var CATEGORIES = [
+  { id: 'all', label: '전체', icon: '★' },
+  { id: 'reports', label: '보고서', icon: '📋' },
+  { id: 'meetings', label: '회의록', icon: '👥' },
+  { id: 'academic', label: '수업/학습', icon: '📖' },
+  { id: 'proposals', label: '제안서/기획서', icon: '📄' },
+  { id: 'official', label: '공문서', icon: '🏛️' },
+  { id: 'research', label: '분석/연구', icon: '🔍' },
+  { id: 'planning', label: '일정/계획', icon: '🗺️' },
+  { id: 'transcription', label: '전사/기록', icon: '🎙️' }
+];
+
+var FEATURE_LABELS = {
+  'tables': '테이블', 'tagged-bullets': '태그 불릿', 'color-coded': '색구분',
+  'before-after': 'Before/After', 'color-verdict': '판정 뱃지', 'stress-data': '응력 데이터',
+  'timestamps': '타임스탬프', 'bullet-list': '불릿 리스트', 'attendees': '참석자',
+  'concept-box': '개념 박스', 'formulas': '수식', 'qa-blocks': 'Q&A 블록',
+  'priority-colors': '우선순위 컬러', 'citations': '인용', 'timeline-bar': '타임라인',
+  'milestone-badges': '마일스톤', 'milestones': '마일스톤', 'sections': '섹션',
+  'gantt-style': '간트 스타일', 'budget-table': '예산 테이블', 'team-list': '팀 목록',
+  'formal-layout': '공문 레이아웃', 'approval-table': '결재 테이블', 'header-block': '헤더 블록',
+  'drawings-ref': '도면 참조', 'verdict': '판정', 'milestone': '마일스톤',
+  'progress-bar': '진행바', 'summary': '요약', 'deliverables': '산출물',
+  'metrics': '지표', 'compact': '콤팩트', 'data-grid': '데이터 그리드',
+  'idea-cards': '아이디어', 'voting': '투표', 'pros-cons': '장단점',
+  'timeline': '타임라인', '3-column': '3단 구성', 'action-items': '액션아이템',
+  'formal': '공식 양식', 'academic': '학술 양식', 'conclusion': '결론',
+  'step-by-step': '단계별', 'formula-list': '공식 목록', 'highlight': '하이라이트',
+  'checklist': '체크리스트', 'benefit-list': '혜택 목록', 'logo-space': '로고 영역',
+  'justification': '근거', 'spec-grid': '스펙 그리드', 'diagram-ref': '다이어그램',
+  'budget-line': '예산 항목', 'deadline': '마감', 'signature': '서명',
+  'stamp': '직인', 'methodology': '방법론', 'comparison-grid': '비교 그리드',
+  'rating': '평점', 'lessons': '교훈', 'abstract': '초록', 'critique': '비평',
+  'hierarchy': '계층 구조', 'assignment': '담당 배정', 'calendar-grid': '캘린더',
+  'speaker-label': '화자 구분', 'notes': '메모', 'takeaways': '핵심 요점',
+  'multi-session': '다세션', 'insights': '인사이트',
+  'approval': '서명란', 'numbered-list': '번호목록'
+};
+
+/* ── State ── */
+var currentFilter = 'all';
+var selectedTemplate = null;
+var qpData = null;
+var qpResultJSON = '';
+
+/* ── Init ── */
+function init() {
+  document.getElementById('header-desc').textContent =
+    '\uC0C1\uD669\uC5D0 \uB9DE\uB294 \uD55C\uAE00 \uBB38\uC11C \uC591\uC2DD\uC744 \uC120\uD0DD\uD558\uC138\uC694';
+
+  var hash = location.hash.slice(1);
+  if (hash) {
+    try {
+      var data = JSON.parse(decodeURIComponent(atob(hash)));
+      handleHashData(data);
+    } catch(e) {
+      try {
+        var data2 = JSON.parse(decodeURIComponent(hash));
+        handleHashData(data2);
+      } catch(e2) {
+        showGalleryMode();
+      }
+    }
+  } else {
+    showGalleryMode();
+  }
+}
+
+function handleHashData(data) {
+  if (data.mode === 'quick-pick') {
+    qpData = data;
+    showQuickPickMode();
+  } else if (data.mode === 'filter') {
+    showGalleryMode();
+    if (data.category) {
+      filterByCategory(data.category);
+    }
+  } else {
+    showGalleryMode();
+  }
+}
+
+/* ── Gallery Mode ── */
+function showGalleryMode() {
+  document.getElementById('gallery-mode').style.display = 'block';
+  document.getElementById('quickpick-mode').style.display = 'none';
+  document.getElementById('no-data').style.display = 'none';
+  buildSidebar();
+  renderGrid('all');
+  renderRecent();
+  setupSearch();
+}
+
+function buildSidebar() {
+  var list = document.getElementById('cat-list');
+  while (list.firstChild) list.removeChild(list.firstChild);
+  CATEGORIES.forEach(function(cat) {
+    var li = _mk('li', 'cat-item' + (cat.id === currentFilter ? ' active' : ''));
+    var iconSpan = _txt('span', '', cat.icon);
+    var labelSpan = _txt('span', '', cat.label);
+    var count = cat.id === 'all' ? TEMPLATES.length :
+      TEMPLATES.filter(function(t) { return t.category === cat.id; }).length;
+    var cntSpan = _txt('span', 'cnt', String(count));
+    li.appendChild(iconSpan);
+    li.appendChild(labelSpan);
+    li.appendChild(cntSpan);
+    li.addEventListener('click', function() { filterByCategory(cat.id); });
+    list.appendChild(li);
+  });
+}
+
+function filterByCategory(catId) {
+  currentFilter = catId;
+  // Update sidebar active state
+  var items = document.querySelectorAll('.cat-item');
+  items.forEach(function(item, i) {
+    if (CATEGORIES[i].id === catId) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+  renderGrid(catId);
+}
+
+function renderGrid(filter) {
+  var container = document.getElementById('main-grid');
+  while (container.firstChild) container.removeChild(container.firstChild);
+
+  var filtered = filter === 'all' ? TEMPLATES :
+    TEMPLATES.filter(function(t) { return t.category === filter; });
+
+  var searchVal = (document.getElementById('search-input').value || '').toLowerCase();
+  if (searchVal) {
+    filtered = filtered.filter(function(t) {
+      return t.name.toLowerCase().indexOf(searchVal) >= 0 ||
+             t.description.toLowerCase().indexOf(searchVal) >= 0 ||
+             t.id.toLowerCase().indexOf(searchVal) >= 0;
+    });
+  }
+
+  if (filter === 'all' && !searchVal) {
+    // Group by category
+    CATEGORIES.forEach(function(cat) {
+      if (cat.id === 'all') return;
+      var catTemplates = filtered.filter(function(t) { return t.category === cat.id; });
+      if (catTemplates.length === 0) return;
+      var header = _txt('div', 'cat-header', cat.icon + ' ' + cat.label);
+      container.appendChild(header);
+      var grid = _mk('div', 'grid');
+      catTemplates.forEach(function(t) { grid.appendChild(createCard(t)); });
+      container.appendChild(grid);
+    });
+  } else {
+    var grid = _mk('div', 'grid');
+    filtered.forEach(function(t) { grid.appendChild(createCard(t)); });
+    container.appendChild(grid);
+  }
+}
+
+function createCard(template) {
+  var card = _mk('div', 'tcard');
+  card.setAttribute('data-id', template.id);
+  if (selectedTemplate && selectedTemplate.id === template.id) {
+    card.classList.add('selected');
+  }
+
+  // Badge (usage count)
+  if (template.usage_count > 0) {
+    var badge = _txt('span', 'tcard-badge', '\xD7' + template.usage_count);
+    card.appendChild(badge);
+  }
+
+  // Icon
+  var icon = _txt('div', 'tcard-icon', template.icon);
+  card.appendChild(icon);
+
+  // Name
+  var name = _txt('div', 'tcard-name', template.name);
+  card.appendChild(name);
+
+  // Description
+  var desc = _txt('div', 'tcard-desc', template.description);
+  card.appendChild(desc);
+
+  // Preview mockup
+  var preview = _mk('div', 'hwp-preview');
+  renderHwpPreview(preview, template);
+  card.appendChild(preview);
+
+  // Feature tags
+  var tags = _mk('div', 'tcard-tags');
+  template.features.forEach(function(f) {
+    var tag = _txt('span', 'feat-tag', FEATURE_LABELS[f] || f);
+    tags.appendChild(tag);
+  });
+  card.appendChild(tags);
+
+  // Meta
+  var meta = _txt('div', 'tcard-meta',
+    template.sections.length + '\uAC1C \uC139\uC158 | Proc ' + template.procedure +
+    (template.script ? ' | ' + template.script : ' | \uC2E0\uADDC'));
+  card.appendChild(meta);
+
+  card.addEventListener('click', function() { selectTemplate(template); });
+  return card;
+}
+
+/* ── Section Visual Type Mapper ── */
+function getSecVis(id) {
+  var m = {
+    header: ['title'],
+    table: ['info_table','meta','stress_table','data_table','budget_table','budget','kpi',
+      'wbs_table','calendar','comparison','priority_table','summary_table','tiers',
+      'budget_line','schedule','targets','roles','team','conditions','this_week',
+      'next_week','backlog','deadlines','events','sessions','material_spec','team_intro'],
+    bullets: ['agenda','ideas','concepts','chapters','topics','strengths','weaknesses',
+      'issues','good','improve','deliverables','highlights','benefits','next_steps',
+      'milestones','goals','objectives','risks','resources','requirements','features',
+      'design_overview','analysis_results','request_detail'],
+    qa: ['qa_pairs','qa'],
+    timeline: ['timeline'],
+    verdict: ['verdict','total','conclusion','recommendation'],
+    approval: ['approval','signature'],
+    divider: ['footer'],
+    bacomp: ['before_after'],
+    formula: ['formulas','formula_list','definitions'],
+    transcript: ['transcript'],
+    checklist: ['checklist','action_items','actions','assignments','todos',
+      'past_analysis','takeaways','insights','notes'],
+    sender: ['sender_receiver'],
+    text: ['summary','overview','body','purpose','progress','scope','background',
+      'reason','request','abstract','critique','applicability','lessons',
+      'literature','methodology','findings','result','solution','problem',
+      'contact','justification','stats','details','phases','decisions',
+      'discussion','next_meeting','references','files','feedback',
+      'drawings_ref','recommendations','architecture','procedure',
+      'logo_space','analysis','vote_result','options',
+      'pros_cons','categories','voting','subject','deposit','deadline']
+  };
+  for (var type in m) { if (m[type].indexOf(id) >= 0) return type; }
+  return 'text';
+}
+
+/* ── Mini Section Renderer (for card preview) ── */
+function renderMiniSec(box, secId) {
+  var t = getSecVis(secId);
+  if (t === 'header') {
+    var h = _mk('div', 'hp-header'); h.style.width = '55%'; box.appendChild(h);
+  } else if (t === 'table') {
+    var tbl = _mk('div', 'hp-table'); tbl.style.gridTemplateColumns = '1fr';
+    var hr = _mk('div', 'hp-table-row'); hr.style.gridTemplateColumns = '1fr 1fr 1fr';
+    for (var i = 0; i < 3; i++) hr.appendChild(_mk('div', 'hp-cell hdr'));
+    tbl.appendChild(hr);
+    var dr = _mk('div', 'hp-table-row'); dr.style.gridTemplateColumns = '1fr 1fr 1fr';
+    for (var j = 0; j < 3; j++) dr.appendChild(_mk('div', 'hp-cell'));
+    tbl.appendChild(dr);
+    box.appendChild(tbl);
+  } else if (t === 'bullets') {
+    for (var b = 0; b < 2; b++) {
+      var bl = _mk('div', 'hp-bullet');
+      var dot = _mk('div', 'hp-bullet-dot'); dot.style.background = '#2563eb';
+      var line = _mk('div', 'hp-bullet-line'); line.style.width = (45 + b * 20) + '%';
+      bl.appendChild(dot); bl.appendChild(line); box.appendChild(bl);
+    }
+  } else if (t === 'qa') {
+    var qa = _mk('div', 'hp-qa-block');
+    var q = _mk('div', 'hp-line'); q.style.cssText = 'width:60%;height:3px;background:#2563eb;margin-bottom:2px';
+    var a = _mk('div', 'hp-line'); a.style.cssText = 'width:80%;height:3px';
+    qa.appendChild(q); qa.appendChild(a); box.appendChild(qa);
+  } else if (t === 'timeline') {
+    var tl = _mk('div'); tl.style.cssText = 'height:4px;background:linear-gradient(90deg,#2563eb,#93c5fd);border-radius:2px;margin:3px 0';
+    box.appendChild(tl);
+    var dots = _mk('div'); dots.style.cssText = 'display:flex;justify-content:space-between;margin-bottom:2px';
+    for (var d = 0; d < 4; d++) { var dd = _mk('div'); dd.style.cssText = 'width:4px;height:4px;border-radius:50%;background:#2563eb'; dots.appendChild(dd); }
+    box.appendChild(dots);
+  } else if (t === 'verdict') {
+    var vd = _mk('div', 'hp-badge'); vd.style.cssText = 'background:#dcfce7;color:#16a34a;font-size:5px;margin:2px 0'; vd.textContent = 'PASS';
+    box.appendChild(vd);
+  } else if (t === 'approval') {
+    var ap = _mk('div', 'hp-table'); ap.style.gridTemplateColumns = '1fr';
+    var ar = _mk('div', 'hp-table-row'); ar.style.gridTemplateColumns = '1fr 1fr 1fr';
+    for (var k = 0; k < 3; k++) { var c = _mk('div', 'hp-cell hdr'); c.style.height = '12px'; ar.appendChild(c); }
+    ap.appendChild(ar); box.appendChild(ap);
+  } else if (t === 'bacomp') {
+    var ba = _mk('div'); ba.style.cssText = 'display:flex;gap:3px;margin:3px 0';
+    var bef = _mk('div'); bef.style.cssText = 'flex:1;background:#fee2e2;height:10px;border-radius:2px';
+    var aft = _mk('div'); aft.style.cssText = 'flex:1;background:#dcfce7;height:10px;border-radius:2px';
+    ba.appendChild(bef); ba.appendChild(aft); box.appendChild(ba);
+  } else if (t === 'formula') {
+    var fb = _mk('div'); fb.style.cssText = 'border:1px solid #dbeafe;border-radius:2px;padding:3px;margin:2px 0;background:#eff6ff';
+    var fl = _mk('div', 'hp-line'); fl.style.cssText = 'width:70%;height:3px'; fb.appendChild(fl); box.appendChild(fb);
+  } else if (t === 'checklist') {
+    for (var ci = 0; ci < 2; ci++) {
+      var cl = _mk('div'); cl.style.cssText = 'display:flex;align-items:center;gap:3px;margin-bottom:2px';
+      var cb = _mk('div'); cb.style.cssText = 'width:5px;height:5px;border:1px solid #94a3b8;border-radius:1px';
+      var cLine = _mk('div', 'hp-line'); cLine.style.width = (50 + ci * 15) + '%';
+      cl.appendChild(cb); cl.appendChild(cLine); box.appendChild(cl);
+    }
+  } else if (t === 'sender') {
+    var sr = _mk('div', 'hp-table'); sr.style.gridTemplateColumns = '1fr';
+    for (var si = 0; si < 2; si++) {
+      var srow = _mk('div', 'hp-table-row'); srow.style.gridTemplateColumns = '1fr 3fr';
+      srow.appendChild(_mk('div', 'hp-cell label')); srow.appendChild(_mk('div', 'hp-cell')); sr.appendChild(srow);
+    }
+    box.appendChild(sr);
+  } else if (t === 'transcript') {
+    var tw = _mk('div'); tw.style.cssText = 'border:1px solid #e2e8f0;border-radius:3px;padding:3px;margin:3px 0;background:#f8fafc';
+    for (var ti = 0; ti < 3; ti++) {
+      var te = _mk('div'); te.style.cssText = 'display:flex;gap:3px;margin-bottom:2px;align-items:center';
+      var tt = _mk('div'); tt.style.cssText = 'width:18px;height:3px;background:#94a3b8;border-radius:1px;flex-shrink:0';
+      var tx = _mk('div', 'hp-line'); tx.style.width = (40 + ti * 15) + '%';
+      te.appendChild(tt); te.appendChild(tx); tw.appendChild(te);
+    }
+    box.appendChild(tw);
+  } else if (t === 'divider') {
+    var dv = _mk('div'); dv.style.cssText = 'height:1px;background:#e2e8f0;margin:3px 0'; box.appendChild(dv);
+  } else {
+    var ln = _mk('div', 'hp-line'); ln.style.width = (55 + Math.random() * 35) + '%'; box.appendChild(ln);
+  }
+}
+
+/* ── Card Preview (section-based, unique per template) ── */
+function renderHwpPreview(box, template) {
+  var secs = template.sections.filter(function(s) { return s.id !== 'footer'; }).slice(0, 5);
+  secs.forEach(function(sec) { renderMiniSec(box, sec.id); });
+}
+
+/* ── Detail Example Renderer (full HWP page mockup) ── */
+function renderDetailExample(container, template) {
+  var page = _mk('div', 'hwp-ex-page');
+  var hint = _txt('div', 'hwp-ex-hint', '📄 HWP 문서 예시 미리보기');
+  page.appendChild(hint);
+
+  template.sections.forEach(function(sec) {
+    var row = _mk('div', 'hwp-ex-sec');
+    var label = _txt('div', 'hwp-ex-label' + (sec.required ? ' req' : ''), sec.label);
+    var body = _mk('div', 'hwp-ex-body');
+    renderExSec(body, sec.id, sec.label, template);
+    row.appendChild(label);
+    row.appendChild(body);
+    page.appendChild(row);
+  });
+  container.appendChild(page);
+}
+
+/* ── Example Section Content ── */
+function renderExSec(box, secId, label, tmpl) {
+  var t = getSecVis(secId);
+
+  if (t === 'header') {
+    var h = _mk('div', 'hwp-ex-title');
+    h.textContent = tmpl.name + ' — 예시 제목';
+    box.appendChild(h);
+
+  } else if (t === 'table') {
+    var tbl = document.createElement('table'); tbl.className = 'hwp-ex-tbl';
+    var hd, dd;
+    if (/stress/.test(secId)) { hd = ['LC','최대 응력(MPa)','위치','판정']; dd = [['LC1','185.3','UCA 브라켓','PASS'],['LC2','142.7','LCA 마운트','PASS']]; }
+    else if (/budget/.test(secId)) { hd = ['항목','수량','단가(원)','소계']; dd = [['재료비','1','500,000','500,000'],['가공비','2','150,000','300,000']]; }
+    else if (/info_table/.test(secId)) { hd = ['작성자','날짜','버전','상태']; dd = [['OOO','2026-03-16','v1.0','진행중']]; }
+    else if (/meta/.test(secId)) { hd = ['날짜','작성자','분류','비고']; dd = [['2026-03-16','OOO',tmpl.category,'-']]; }
+    else if (/summary_table/.test(secId)) { hd = ['항목','핵심 내용','비고']; dd = [['개념 1','설명 텍스트','-'],['개념 2','관련 공식','-']]; }
+    else if (/comparison|targets/.test(secId)) { hd = ['항목','방안 A','방안 B','평가']; dd = [['성능','우수','보통','A 우위'],['비용','높음','낮음','B 우위']]; }
+    else if (/wbs/.test(secId)) { hd = ['WBS','작업명','담당','기간']; dd = [['1.1','설계 검토','OOO','1주'],['1.2','FEA 수행','OOO','2주']]; }
+    else if (/priority/.test(secId)) { hd = ['우선순위','항목','담당','마감']; dd = [['🔴 HIGH','핵심 작업','OOO','D-7'],['🟡 MED','보조 작업','OOO','D-14']]; }
+    else if (/schedule|calendar|deadlines|events/.test(secId)) { hd = ['날짜','일정','장소','비고']; dd = [['03/20','설계 리뷰','Lab','-'],['03/27','FEA 완료','Online','마감']]; }
+    else if (/conditions/.test(secId)) { hd = ['조건','값','단위','비고']; dd = [['하중','2.5','kN','정적'],['온도','23','°C','상온']]; }
+    else if (/backlog/.test(secId)) { hd = ['ID','태스크','스토리 포인트','상태']; dd = [['T-01','설계 검토','3','진행중'],['T-02','FEA 해석','5','대기']]; }
+    else if (/team|roles/.test(secId)) { hd = ['이름','역할','담당 영역','비고']; dd = [['OOO','팀장','설계 총괄','-'],['OOO','설계','업라이트','-']]; }
+    else if (/tiers/.test(secId)) { hd = ['등급','금액','혜택','비고']; dd = [['Gold','500만원','로고 전면','-'],['Silver','300만원','로고 측면','-']]; }
+    else if (/sessions/.test(secId)) { hd = ['세션','발표자','주제','시간']; dd = [['S1','OOO','서스펜션 설계','10:00'],['S2','OOO','FEA 방법론','11:00']]; }
+    else if (/this_week|next_week/.test(secId)) { hd = ['항목','내용','달성률']; dd = [['설계','업라이트 모델링','80%'],['해석','LC1~LC3 FEA','50%']]; }
+    else { hd = ['항목','내용','비고']; dd = [['항목 1','내용 설명','-'],['항목 2','추가 설명','-']]; }
+    var thead = document.createElement('thead'); var hr = document.createElement('tr');
+    hd.forEach(function(h) { var th = document.createElement('th'); th.textContent = h; hr.appendChild(th); });
+    thead.appendChild(hr); tbl.appendChild(thead);
+    var tbody = document.createElement('tbody');
+    dd.forEach(function(d) { var dr = document.createElement('tr'); d.forEach(function(c) { var td = document.createElement('td'); td.textContent = c; dr.appendChild(td); }); tbody.appendChild(dr); });
+    tbl.appendChild(tbody); box.appendChild(tbl);
+
+  } else if (t === 'bullets') {
+    var items;
+    if (/agenda/.test(secId)) items = ['안건 1: 설계 진행 상황 보고','안건 2: FEA 결과 검토','안건 3: 일정 조정 논의'];
+    else if (/concepts/.test(secId)) items = ['Von Mises 응력 기준과 안전율 계산','유한요소법(FEM) 메시 수렴성','경계 조건 설정 원칙'];
+    else if (/milestones/.test(secId)) items = ['M1: 개념 설계 완료 (03/15)','M2: 상세 설계 완료 (04/01)','M3: 시제품 제작 (04/15)'];
+    else if (/strengths/.test(secId)) items = ['강점 1: 명확한 방법론 제시','강점 2: 충분한 실험 데이터'];
+    else if (/weaknesses/.test(secId)) items = ['약점 1: 피로 수명 미고려','약점 2: 제한된 샘플 크기'];
+    else if (/good/.test(secId)) items = ['설계 일정 준수','팀 커뮤니케이션 개선'];
+    else if (/improve/.test(secId)) items = ['FEA 수렴 시간 단축 필요','문서화 보강 필요'];
+    else if (/deliverables/.test(secId)) items = ['3D CAD 모델 (STEP)','FEA 보고서','제작 도면 (DWG)'];
+    else items = ['첫 번째 항목 내용이 여기에 표시됩니다','두 번째 항목 내용','세 번째 항목'];
+    items.forEach(function(it) { var b = _mk('div', 'hwp-ex-bul'); b.appendChild(document.createTextNode(it)); box.appendChild(b); });
+
+  } else if (t === 'qa') {
+    [{ q:'Q1. 설계 기준은 무엇인가?', a:'A1. FSK 규정 기반 안전율 2.0 이상, Al 7075-T6 기준' },
+     { q:'Q2. 재료 선정 근거는?', a:'A2. 강도/중량비 우수, 기존 GF-25 검증 완료' }
+    ].forEach(function(p) {
+      var bl = _mk('div', 'hwp-ex-qa');
+      bl.appendChild(_txt('div', 'eq', p.q));
+      bl.appendChild(_txt('div', 'ea', p.a));
+      box.appendChild(bl);
+    });
+
+  } else if (t === 'timeline') {
+    box.appendChild(_mk('div', 'hwp-ex-tl'));
+    var dots = _mk('div'); dots.style.cssText = 'display:flex;justify-content:space-between;font-size:.5rem;color:#64748b';
+    ['Phase 0','Phase A','Phase B','Phase C'].forEach(function(p) { dots.appendChild(_txt('span','',p)); });
+    box.appendChild(dots);
+
+  } else if (t === 'verdict') {
+    var bd = _mk('span', 'hwp-ex-badge pass'); bd.textContent = '✓ PASS';
+    var vt = document.createTextNode('  안전율 2.3 > 기준 2.0');
+    box.appendChild(bd); box.appendChild(vt);
+    box.style.fontSize = '.6rem'; box.style.color = '#475569';
+
+  } else if (t === 'bacomp') {
+    var ba = _mk('div', 'hwp-ex-ba');
+    var bef = _txt('div', 'bef', 'Before: 185 MPa'); var aft = _txt('div', 'aft', 'After: 142 MPa');
+    ba.appendChild(bef); ba.appendChild(aft); box.appendChild(ba);
+
+  } else if (t === 'formula') {
+    var f = _mk('div', 'hwp-ex-form');
+    if (/definitions/.test(secId)) f.textContent = '정의: σ (응력) = F / A,  ε (변형률) = ΔL / L₀';
+    else f.textContent = 'σ = F/A,  SF = σ_y / σ_max,  Kf = 1 + q(Kt − 1)';
+    box.appendChild(f);
+
+  } else if (t === 'checklist') {
+    var items;
+    if (/todo/.test(secId)) items = ['다음 세션 작업 항목 1','작업 항목 2','검토 필요 항목'];
+    else if (/action/.test(secId)) items = ['[OOO] 설계 검토 완료 (D-3)','[OOO] FEA 재수행','[OOO] 보고서 작성'];
+    else if (/takeaways|insights/.test(secId)) items = ['핵심 인사이트 1','적용 가능한 발견 사항','추가 조사 필요 항목'];
+    else items = ['체크 항목 1','체크 항목 2','체크 항목 3'];
+    items.forEach(function(it) { var c = _mk('div', 'hwp-ex-chk'); c.appendChild(document.createTextNode(it)); box.appendChild(c); });
+
+  } else if (t === 'approval') {
+    var ap = _mk('div', 'hwp-ex-appr');
+    ['담당\n(인)','검토\n(인)','승인\n(인)'].forEach(function(tt) {
+      var d = _mk('div'); d.textContent = tt; ap.appendChild(d);
+    });
+    box.appendChild(ap);
+
+  } else if (t === 'sender') {
+    var sr = _mk('div', 'hwp-ex-sr');
+    [['수신','(기관/부서명)'],['발신','GHOST Racing']].forEach(function(r) {
+      sr.appendChild(_txt('div', 'sl', r[0]));
+      sr.appendChild(_txt('div', 'sv', r[1]));
+    });
+    box.appendChild(sr);
+
+  } else if (t === 'divider') {
+    box.appendChild(_mk('div', 'hwp-ex-div'));
+    var ft = _txt('div', '', 'GHOST Racing © 2026');
+    ft.style.cssText = 'text-align:center;font-size:.55rem;color:#94a3b8';
+    box.appendChild(ft);
+
+  } else {
+    var txt = _mk('div', 'hwp-ex-text');
+    if (/summary|overview/.test(secId)) txt.textContent = '본 문서는 프로젝트의 전체적인 개요와 진행 상황을 요약합니다. 주요 성과와 핵심 의사결정 내역이 포함됩니다.';
+    else if (/discussion/.test(secId)) txt.textContent = '[00:05] 설계 진행 상황에 대해 논의 — 업라이트 FEA 1차 결과 공유\n[00:12] LC2 코너링 케이스 응력 집중 위치 확인';
+    else if (/progress|details/.test(secId)) txt.textContent = '현재 Phase A 완료 (19/19 항목). 전체 진행률 32%. 핵심 이슈: LC2 응력 집중 해결 필요.';
+    else if (/feedback/.test(secId)) txt.textContent = '교수님 피드백: "해석 조건 재확인 필요. 경계 조건 설정 근거 보강할 것."';
+    else if (/methodology|procedure/.test(secId)) txt.textContent = '1. 하중 케이스 정의 → 2. 메시 수렴 검증 → 3. FEA 수행 → 4. 결과 분석 → 5. 설계 반영';
+    else if (/abstract/.test(secId)) txt.textContent = '본 논문은 Formula Student 차량의 업라이트 경량화를 위한 위상최적화 기법을 제안한다...';
+    else if (/transcript/.test(secId)) txt.textContent = '[00:00] A: 오늘 회의 시작하겠습니다\n[00:05] B: 지난 주 설계 결과 공유드립니다\n[00:12] A: 응력 집중 부분 확인했나요?';
+    else txt.textContent = '내용이 여기에 표시됩니다. 상세한 설명과 분석 결과가 포함됩니다.';
+    txt.style.whiteSpace = 'pre-line';
+    box.appendChild(txt);
+  }
+}
+
+/* ── Template Selection → Detail Panel ── */
+function selectTemplate(template) {
+  selectedTemplate = template;
+
+  // Update card selected state
+  document.querySelectorAll('.tcard').forEach(function(c) {
+    if (c.getAttribute('data-id') === template.id) {
+      c.classList.add('selected');
+    } else {
+      c.classList.remove('selected');
+    }
+  });
+
+  // Build detail panel
+  var panel = document.getElementById('detail-panel');
+  var title = document.getElementById('detail-title');
+  title.textContent = template.icon + ' ' + template.name;
+  document.getElementById('detail-close').onclick = function() {
+    panel.classList.remove('active');
+    selectedTemplate = null;
+    document.querySelectorAll('.tcard').forEach(function(c) { c.classList.remove('selected'); });
+  };
+
+  var body = document.getElementById('detail-body');
+  while (body.firstChild) body.removeChild(body.firstChild);
+
+  // Description
+  body.appendChild(_txt('p', '', template.description));
+
+  // Example preview
+  renderDetailExample(body, template);
+
+  // Section checklist
+  var secTitle = _txt('h3', '', '\uC139\uC158 \uC120\uD0DD');
+  secTitle.style.cssText = 'color:var(--purple);font-size:1rem;margin:1rem 0 .5rem';
+  body.appendChild(secTitle);
+
+  var secList = _mk('ul', 'section-list');
+  template.sections.forEach(function(sec) {
+    var li = _mk('li', 'section-item');
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = true;
+    cb.id = 'sec-' + sec.id;
+    if (sec.required) cb.disabled = true;
+    var lbl = document.createElement('label');
+    lbl.setAttribute('for', 'sec-' + sec.id);
+    lbl.textContent = sec.label;
+    li.appendChild(cb);
+    li.appendChild(lbl);
+    if (sec.required) {
+      var req = _txt('span', 'req', '\uD544\uC218');
+      li.appendChild(req);
+    }
+    secList.appendChild(li);
+  });
+  body.appendChild(secList);
+
+  // Page border toggle
+  var optRow = _mk('div', 'option-row');
+  var optLabel = _txt('label', '', '\uD398\uC774\uC9C0 \uD14C\uB450\uB9AC');
+  optLabel.setAttribute('for', 'page-border');
+  var toggle = _mk('label', 'toggle');
+  var togInput = document.createElement('input');
+  togInput.type = 'checkbox';
+  togInput.id = 'page-border';
+  togInput.checked = true;
+  var togSlider = _mk('span', 'toggle-slider');
+  toggle.appendChild(togInput);
+  toggle.appendChild(togSlider);
+  optRow.appendChild(optLabel);
+  optRow.appendChild(toggle);
+  body.appendChild(optRow);
+
+  // Result section
+  var resSection = _mk('div', 'result-section');
+  var resPre = _mk('pre');
+  resPre.id = 'detail-result-json';
+  resSection.appendChild(resPre);
+
+  var resActions = _mk('div', 'result-actions');
+  var btnSelect = _mk('button', 'btn-select');
+  btnSelect.textContent = '\uC120\uD0DD \uC644\uB8CC';
+  btnSelect.addEventListener('click', function() { finalizeSelection(); });
+  var btnCopy = _mk('button', 'btn-copy');
+  btnCopy.id = 'detail-copy-btn';
+  btnCopy.textContent = '\uD074\uB9BD\uBCF4\uB4DC\uC5D0 \uBCF5\uC0AC';
+  btnCopy.addEventListener('click', function() { copyDetailResult(); });
+
+  resActions.appendChild(btnSelect);
+  resActions.appendChild(btnCopy);
+  resSection.appendChild(resActions);
+  body.appendChild(resSection);
+
+  // Show panel
+  panel.classList.add('active');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  updateResultPreview();
+
+  // Listen for checkbox changes
+  secList.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+    cb.addEventListener('change', updateResultPreview);
+  });
+  togInput.addEventListener('change', updateResultPreview);
+}
+
+function updateResultPreview() {
+  if (!selectedTemplate) return;
+  var result = buildResultJSON();
+  var pre = document.getElementById('detail-result-json');
+  if (pre) pre.textContent = JSON.stringify(result, null, 2);
+}
+
+function buildResultJSON() {
+  var enabled = [];
+  var disabled = [];
+  selectedTemplate.sections.forEach(function(sec) {
+    var cb = document.getElementById('sec-' + sec.id);
+    if (cb && cb.checked) {
+      enabled.push(sec.id);
+    } else {
+      disabled.push(sec.id);
+    }
+  });
+  var borderEl = document.getElementById('page-border');
+  return {
+    choice: 'gallery',
+    template_id: selectedTemplate.id,
+    template_name: selectedTemplate.name,
+    procedure: selectedTemplate.procedure,
+    script: selectedTemplate.script,
+    sections_enabled: enabled,
+    sections_disabled: disabled,
+    options: {
+      page_border: borderEl ? borderEl.checked : true
+    }
+  };
+}
+
+function finalizeSelection() {
+  var result = buildResultJSON();
+  var json = JSON.stringify(result, null, 2);
+  navigator.clipboard.writeText(json).then(function() {
+    showToast('\u2705 \uBCF5\uC0AC\uB428! \u2014 ' + selectedTemplate.name);
+    updateHistory(selectedTemplate.id);
+  });
+  // Cross-window communication: save to localStorage for Transcribe Wizard
+  try {
+    localStorage.setItem('ghost-hwp-picker-result', JSON.stringify({
+      template_id: selectedTemplate.id,
+      template_name: selectedTemplate.name,
+      icon: selectedTemplate.icon,
+      procedure: selectedTemplate.procedure,
+      ts: Date.now()
+    }));
+  } catch(e) {}
+  // If opened from Transcribe Wizard, close this tab and return
+  if (window.opener) {
+    setTimeout(function() { window.close(); }, 300);
+  }
+}
+
+function copyDetailResult() {
+  var pre = document.getElementById('detail-result-json');
+  if (!pre) return;
+  navigator.clipboard.writeText(pre.textContent).then(function() {
+    var btn = document.getElementById('detail-copy-btn');
+    btn.textContent = '\u2705 \uBCF5\uC0AC\uB428!';
+    setTimeout(function() { btn.textContent = '\uD074\uB9BD\uBCF4\uB4DC\uC5D0 \uBCF5\uC0AC'; }, 2000);
+  });
+}
+
+/* ── localStorage History ── */
+function getHistory() {
+  try {
+    return JSON.parse(localStorage.getItem('ghost-hwp-picker-history') || '[]');
+  } catch(e) { return []; }
+}
+
+function updateHistory(templateId) {
+  var history = getHistory();
+  history = history.filter(function(h) { return h.id !== templateId; });
+  history.unshift({ id: templateId, date: new Date().toISOString().slice(0, 10) });
+  if (history.length > 10) history = history.slice(0, 10);
+  localStorage.setItem('ghost-hwp-picker-history', JSON.stringify(history));
+  renderRecent();
+}
+
+function renderRecent() {
+  var history = getHistory();
+  var section = document.getElementById('recent-section');
+  var container = document.getElementById('recent-cards');
+  if (!container) return;
+  while (container.firstChild) container.removeChild(container.firstChild);
+  if (history.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+  var show = history.slice(0, 3);
+  show.forEach(function(h) {
+    var tmpl = TEMPLATES.find(function(t) { return t.id === h.id; });
+    if (!tmpl) return;
+    var card = _mk('div', 'recent-card');
+    card.appendChild(_txt('div', 'rc-name', tmpl.icon + ' ' + tmpl.name));
+    card.appendChild(_txt('div', 'rc-date', h.date));
+    card.addEventListener('click', function() { selectTemplate(tmpl); });
+    container.appendChild(card);
+  });
+}
+
+/* ── Search ── */
+function setupSearch() {
+  var input = document.getElementById('search-input');
+  input.addEventListener('input', function() {
+    renderGrid(currentFilter);
+  });
+}
+
+/* ── Quick-Pick Mode ── */
+function showQuickPickMode() {
+  document.getElementById('gallery-mode').style.display = 'none';
+  document.getElementById('quickpick-mode').style.display = 'block';
+  document.getElementById('no-data').style.display = 'none';
+  document.getElementById('header-desc').textContent =
+    'HWP \uBB38\uC11C \uC591\uC2DD\uC744 \uC120\uD0DD\uD558\uC138\uC694. \uC120\uD0DD \uACB0\uACFC\uAC00 \uD074\uB9BD\uBCF4\uB4DC\uC5D0 \uBCF5\uC0AC\uB429\uB2C8\uB2E4.';
+  renderQuickPickCards();
+}
+
+function renderQuickPickCards() {
+  var container = document.getElementById('qp-cards');
+  while (container.firstChild) container.removeChild(container.firstChild);
+
+  // Card A: Previous
+  var cardA = _mk('div', 'qp-card');
+  cardA.id = 'qp-card-a';
+  cardA.appendChild(_txt('span', 'qp-badge badge-a', 'A'));
+  cardA.appendChild(_txt('div', 'qp-label', '\uD83D\uDD04 \uC774\uC804 \uC0AC\uC6A9'));
+  var prevTmpl = qpData && qpData.previous ? qpData.previous : {};
+  var prevName = prevTmpl.template_name || prevTmpl.template_id || 'Unknown';
+  cardA.appendChild(_txt('div', 'qp-desc',
+    '"' + prevName + '" \u2014 Proc ' + (prevTmpl.procedure || '?')));
+  // Preview
+  var prevPreview = _mk('div', 'hwp-preview');
+  var tmplPrev = TEMPLATES.find(function(t) {
+    return t.id === (prevTmpl.template_id || 'session-report');
+  }) || TEMPLATES[0];
+  renderHwpPreview(prevPreview, tmplPrev);
+  cardA.appendChild(prevPreview);
+  var btnA = _txt('button', 'qp-select', '\uC774 \uC591\uC2DD\uC73C\uB85C \uC120\uD0DD');
+  cardA.appendChild(btnA);
+  cardA.addEventListener('click', function() { selectQP('previous'); });
+  container.appendChild(cardA);
+
+  // Card B: AI Recommended
+  var cardB = _mk('div', 'qp-card');
+  cardB.id = 'qp-card-b';
+  cardB.appendChild(_txt('span', 'qp-badge badge-b', 'B'));
+  cardB.appendChild(_txt('div', 'qp-label', '\uD83E\uDD16 AI \uCD94\uCC9C'));
+  var recTmpl = qpData && qpData.recommended ? qpData.recommended : {};
+  var recName = recTmpl.template_name || recTmpl.template_id || 'AI Preset';
+  cardB.appendChild(_txt('div', 'qp-desc',
+    '"' + recName + '" \u2014 ' + (recTmpl.reason || '')));
+  var recPreview = _mk('div', 'hwp-preview');
+  var tmplRec = TEMPLATES.find(function(t) {
+    return t.id === (recTmpl.template_id || 'session-report');
+  }) || TEMPLATES[0];
+  renderHwpPreview(recPreview, tmplRec);
+  cardB.appendChild(recPreview);
+  var btnB = _txt('button', 'qp-select', 'AI \uCD94\uCC9C \uC801\uC6A9');
+  cardB.appendChild(btnB);
+  cardB.addEventListener('click', function() { selectQP('recommended'); });
+  container.appendChild(cardB);
+
+  // Card C: Gallery
+  var cardC = _mk('div', 'qp-card');
+  cardC.id = 'qp-card-c';
+  cardC.appendChild(_txt('span', 'qp-badge badge-c', 'C'));
+  cardC.appendChild(_txt('div', 'qp-label', '\u2728 \uAC24\uB7EC\uB9AC\uC5D0\uC11C \uC120\uD0DD'));
+  cardC.appendChild(_txt('div', 'qp-desc',
+    '8개 카테고리 42개 양식에서 직접 브라우징합니다.'));
+  var galleryPreview = _mk('div', 'hwp-preview');
+  galleryPreview.style.cssText = 'display:flex;align-items:center;justify-content:center;min-height:100px';
+  var gInner = _mk('div');
+  gInner.style.textAlign = 'center';
+  var gIcon = _txt('div', '', '\uD83D\uDDC2\uFE0F');
+  gIcon.style.cssText = 'font-size:2.5rem;margin-bottom:.5rem';
+  var gText = _txt('div', '', '\uD14C\uD50C\uB9BF \uAC24\uB7EC\uB9AC \uC5F4\uAE30');
+  gText.style.color = '#94a3b8';
+  gInner.appendChild(gIcon);
+  gInner.appendChild(gText);
+  galleryPreview.appendChild(gInner);
+  cardC.appendChild(galleryPreview);
+  var btnC = _txt('button', 'qp-select', '\uAC24\uB7EC\uB9AC \uC5F4\uAE30');
+  cardC.appendChild(btnC);
+  cardC.addEventListener('click', function() { switchToGallery(); });
+  container.appendChild(cardC);
+}
+
+function selectQP(option) {
+  document.querySelectorAll('.qp-card').forEach(function(c) { c.classList.remove('selected'); });
+  var result;
+  if (option === 'previous') {
+    document.getElementById('qp-card-a').classList.add('selected');
+    var prev = qpData.previous || {};
+    result = {
+      choice: 'previous',
+      action: 'use_existing',
+      template_id: prev.template_id || 'session-report',
+      procedure: prev.procedure || 1
+    };
+    document.getElementById('qp-result-title').textContent = 'A: \uC774\uC804 \uC591\uC2DD \uC0AC\uC6A9';
+  } else {
+    document.getElementById('qp-card-b').classList.add('selected');
+    var rec = qpData.recommended || {};
+    result = {
+      choice: 'recommended',
+      action: 'apply_ai',
+      template_id: rec.template_id || 'session-report',
+      procedure: rec.procedure || 1
+    };
+    document.getElementById('qp-result-title').textContent = 'B: AI \uCD94\uCC9C \uC801\uC6A9';
+  }
+  qpResultJSON = JSON.stringify(result, null, 2);
+  document.getElementById('qp-result-json').textContent = qpResultJSON;
+  var resPanel = document.getElementById('qp-result');
+  resPanel.classList.add('active');
+  document.getElementById('qp-copy-btn').textContent = '\uD074\uB9BD\uBCF4\uB4DC\uC5D0 \uBCF5\uC0AC';
+  document.getElementById('qp-gallery-btn').textContent = '\uAC24\uB7EC\uB9AC \uC5F4\uAE30';
+  copyQPResult();
+}
+
+function copyQPResult() {
+  if (!qpResultJSON) return;
+  navigator.clipboard.writeText(qpResultJSON).then(function() {
+    var btn = document.getElementById('qp-copy-btn');
+    btn.textContent = '\u2705 \uBCF5\uC0AC\uB428!';
+    setTimeout(function() { btn.textContent = '\uD074\uB9BD\uBCF4\uB4DC\uC5D0 \uBCF5\uC0AC'; }, 2000);
+  });
+}
+
+function switchToGallery() {
+  document.getElementById('quickpick-mode').style.display = 'none';
+  showGalleryMode();
+}
+
+/* ── No Data Fallback ── */
+function loadManualData() {
+  try {
+    var raw = document.getElementById('manual-input').value.replace(/[\n\r\t]/g, ' ');
+    var data = JSON.parse(raw);
+    handleHashData(data);
+  } catch(e) {
+    alert('Invalid JSON: ' + e.message);
+  }
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "id": "meeting-capstone",
+  "category": "meetings",
+  "name": "캡스톤 회의",
+  "icon": "🛠️",
+  "description": "교수 피드백, 진행보고, 과제",
+  "procedure": 2,
+  "features": ["tables", "formal", "academic"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "회의 제목",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 18, "title_color": "BLUE", "subtitle_size": 10, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "날짜 / 참석자 / 교수",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "transcript",
+      "label": "회의 전사",
+      "required": true,
+      "render": "transcript_body",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": false }
+}

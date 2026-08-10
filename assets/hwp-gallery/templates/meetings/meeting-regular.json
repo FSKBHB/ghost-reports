@@ -1,0 +1,40 @@
+{
+  "id": "meeting-regular",
+  "category": "meetings",
+  "name": "정기회의록",
+  "icon": "👥",
+  "description": "참석자, 안건, 결정사항, 타임스탬프",
+  "procedure": 2,
+  "features": ["tables", "timestamps", "attendees"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "회의 제목",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 18, "title_color": "BLUE", "subtitle_size": 10, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "날짜 / 소스 / 길이",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "transcript",
+      "label": "회의 전사",
+      "required": true,
+      "render": "transcript_body",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": false }
+}

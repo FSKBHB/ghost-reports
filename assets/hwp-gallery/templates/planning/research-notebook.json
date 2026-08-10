@@ -1,0 +1,82 @@
+{
+  "id": "research-notebook",
+  "category": "planning",
+  "name": "연구노트",
+  "icon": "🔬",
+  "description": "연구 목적, 실험 방법, 데이터 기록, 결과 분석, 서명란 포함 공식 연구노트",
+  "procedure": 2,
+  "features": ["tables", "numbered-list", "approval", "formal"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "제목",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 20, "title_color": "BLUE", "subtitle_size": 11, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "연구 정보",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "objective",
+      "label": "연구 목적 및 배경",
+      "required": true,
+      "render": "heading_text",
+      "params": { "heading_size": 16 }
+    },
+    {
+      "id": "method",
+      "label": "실험/해석 방법",
+      "required": true,
+      "render": "numbered_list",
+      "params": {}
+    },
+    {
+      "id": "data",
+      "label": "데이터 기록",
+      "required": true,
+      "render": "data_table",
+      "params": {}
+    },
+    {
+      "id": "results",
+      "label": "결과 및 분석",
+      "required": true,
+      "render": "heading_text",
+      "params": { "heading_size": 16 }
+    },
+    {
+      "id": "conclusions",
+      "label": "결론 및 시사점",
+      "required": true,
+      "render": "bullet_list",
+      "params": {}
+    },
+    {
+      "id": "references",
+      "label": "참고문헌",
+      "required": false,
+      "render": "bullet_list",
+      "params": {}
+    },
+    {
+      "id": "approval",
+      "label": "서명란",
+      "required": false,
+      "render": "approval_block",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": true }
+}

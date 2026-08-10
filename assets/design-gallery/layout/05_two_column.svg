@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>05. Two-Column Layout</title>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #ffffff; stroke: #94a3b8; stroke-width: 1; rx: 6; }
+      .nav { fill: #1e293b; }
+      .accent { fill: #2563eb; }
+      .text { fill: #64748b; font-family: sans-serif; font-size: 11px; }
+      .text-sm { fill: #64748b; font-family: sans-serif; font-size: 9px; }
+      .label { fill: #2563eb; font-family: sans-serif; font-size: 12px; font-weight: 700; }
+      .line { fill: none; stroke: #e2e8f0; stroke-width: 1; }
+      .line-accent { fill: none; stroke: #2563eb; stroke-width: 2; }
+      .placeholder { fill: #e2e8f0; rx: 4; }
+    </style>
+  </defs>
+  <rect width="800" height="500" class="bg"/>
+  <rect x="0" y="0" width="800" height="40" class="nav"/>
+  <text x="400" y="25" fill="#f1f5f9" class="text" text-anchor="middle" font-weight="700">Comparison: GF-25 vs GF-26</text>
+  <rect x="16" y="56" width="376" height="36" fill="#2563eb" rx="6 6 0 0"/>
+  <text x="204" y="80" fill="#fff" class="text" text-anchor="middle" font-weight="700">GF-25 (Before)</text>
+  <rect x="16" y="92" width="376" height="340" class="card"/>
+  <rect x="32" y="108" width="344" height="8" class="placeholder"/>
+  <rect x="32" y="124" width="260" height="6" class="placeholder"/>
+  <rect x="32" y="136" width="344" height="20" class="placeholder"/>
+  <rect x="32" y="168" width="344" height="8" class="placeholder"/>
+  <rect x="32" y="184" width="260" height="6" class="placeholder"/>
+  <rect x="32" y="196" width="344" height="20" class="placeholder"/>
+  <rect x="32" y="228" width="344" height="8" class="placeholder"/>
+  <rect x="32" y="244" width="260" height="6" class="placeholder"/>
+  <rect x="32" y="256" width="344" height="20" class="placeholder"/>
+  <rect x="32" y="288" width="344" height="8" class="placeholder"/>
+  <rect x="32" y="304" width="260" height="6" class="placeholder"/>
+  <rect x="32" y="316" width="344" height="20" class="placeholder"/>
+  <rect x="32" y="348" width="344" height="8" class="placeholder"/>
+  <rect x="32" y="364" width="260" height="6" class="placeholder"/>
+  <rect x="32" y="376" width="344" height="20" class="placeholder"/>
+  <rect x="408" y="56" width="376" height="36" fill="#d97706" rx="6 6 0 0"/>
+  <text x="596" y="80" fill="#fff" class="text" text-anchor="middle" font-weight="700">GF-26 (After)</text>
+  <rect x="408" y="92" width="376" height="340" class="card"/>
+  <rect x="424" y="108" width="344" height="8" class="placeholder"/>
+  <rect x="424" y="124" width="260" height="6" class="placeholder"/>
+  <rect x="424" y="136" width="344" height="20" class="placeholder"/>
+  <rect x="424" y="168" width="344" height="8" class="placeholder"/>
+  <rect x="424" y="184" width="260" height="6" class="placeholder"/>
+  <rect x="424" y="196" width="344" height="20" class="placeholder"/>
+  <rect x="424" y="228" width="344" height="8" class="placeholder"/>
+  <rect x="424" y="244" width="260" height="6" class="placeholder"/>
+  <rect x="424" y="256" width="344" height="20" class="placeholder"/>
+  <rect x="424" y="288" width="344" height="8" class="placeholder"/>
+  <rect x="424" y="304" width="260" height="6" class="placeholder"/>
+  <rect x="424" y="316" width="344" height="20" class="placeholder"/>
+  <rect x="424" y="348" width="344" height="8" class="placeholder"/>
+  <rect x="424" y="364" width="260" height="6" class="placeholder"/>
+  <rect x="424" y="376" width="344" height="20" class="placeholder"/>
+  <text x="400" y="460" class="label" text-anchor="middle">05. Two-Column Comparison</text>
+</svg>

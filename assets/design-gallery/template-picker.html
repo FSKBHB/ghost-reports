@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Template Picker — GHOST Racing</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f172a;--sf:#1e293b;--sf2:#172554;--ac:#60a5fa;--acd:#1e40af;--tx:#e2e8f0;--txd:#94a3b8;--bd:#334155;--ok:#4ade80;--warn:#fbbf24}
+body{background:var(--bg);color:var(--tx);font-family:'Noto Sans KR',system-ui,sans-serif;min-height:100vh;padding:2rem}
+.header{text-align:center;margin-bottom:2rem}
+.header h1{color:var(--ac);font-size:1.6rem;margin-bottom:.3rem}
+.header p{color:var(--txd);font-size:.9rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1100px;margin:0 auto}
+@media(max-width:800px){.cards{grid-template-columns:1fr}}
+.card{background:var(--sf);border:2px solid var(--bd);border-radius:16px;padding:1.5rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--ac);transform:translateY(-4px);box-shadow:0 8px 32px rgba(96,165,250,.15)}
+.card.selected{border-color:var(--ok);box-shadow:0 0 0 3px rgba(74,222,128,.2)}
+.card-badge{position:absolute;top:12px;right:12px;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700}
+.badge-prev{background:#60a5fa22;color:#60a5fa}
+.badge-ai{background:#fbbf2422;color:#fbbf24}
+.badge-new{background:#4ade8022;color:#4ade80}
+.card-label{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;color:var(--ac)}
+.card-desc{font-size:.85rem;color:var(--txd);margin-bottom:1rem;line-height:1.5}
+.preview-box{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:1rem;min-height:120px;margin-bottom:1rem}
+.pv-header{height:8px;border-radius:4px;margin-bottom:8px;width:60%}
+.pv-text{height:6px;border-radius:3px;margin-bottom:6px;opacity:.5}
+.pv-card{border-width:1px;border-style:solid;border-radius:8px;padding:8px;margin-top:8px}
+.pv-card .pv-text{margin-bottom:4px}
+.config-tag{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--bg);margin:2px;font-family:monospace;font-size:.75rem;color:var(--txd)}
+.config-summary{font-size:.8rem;color:var(--txd);line-height:1.8}
+.select-btn{display:block;width:100%;padding:.7rem;background:var(--acd);color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .15s;margin-top:.8rem}
+.select-btn:hover{background:var(--ac)}
+.card.selected .select-btn{background:#16a34a}
+.result{max-width:1100px;margin:2rem auto;background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:1.2rem;display:none}
+.result.active{display:block}
+.result h3{color:var(--ac);font-size:1rem;margin-bottom:.5rem}
+.result pre{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:1rem;font-size:.8rem;overflow-x:auto;max-height:300px;color:var(--tx);font-family:'JetBrains Mono',monospace;white-space:pre-wrap}
+.result-actions{display:flex;gap:.5rem;margin-top:.8rem}
+.result-actions button{padding:.5rem 1.2rem;border:none;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-copy{background:var(--acd);color:#fff}.btn-copy:hover{background:var(--ac)}
+.btn-wizard{background:var(--sf2);color:var(--ac);border:1px solid var(--bd)!important}.btn-wizard:hover{border-color:var(--ac)!important}
+.no-data{text-align:center;padding:3rem;color:var(--txd)}
+.no-data textarea{width:100%;max-width:600px;height:200px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;color:var(--tx);padding:1rem;font-family:monospace;font-size:.85rem;margin-top:1rem;resize:vertical}
+.no-data button{margin-top:1rem;padding:.6rem 2rem;background:var(--acd);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer}
+.footer{text-align:center;color:var(--txd);font-size:.8rem;margin-top:2rem;padding:1rem}
+</style>
+</head>
+<body>
+<div class="nav" style="display:flex;justify-content:center;gap:.5rem;padding:1rem 1rem .5rem;flex-wrap:wrap">
+<a href="#" style="display:inline-flex;align-items:center;gap:.3rem;padding:.4rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;background:var(--acd);border:1px solid var(--acd);color:#fff">HTML Picker</a>
+<a href="../ppt-gallery/preset-picker.html" style="display:inline-flex;align-items:center;gap:.3rem;padding:.4rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;border:1px solid var(--bd);color:var(--txd)">PPT Picker</a>
+<a href="../hwp-gallery/hwp-template-picker.html" style="display:inline-flex;align-items:center;gap:.3rem;padding:.4rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;border:1px solid var(--bd);color:var(--txd)">HWP Picker</a>
+<a href="../transcribe/transcribe-launcher.html" style="display:inline-flex;align-items:center;gap:.3rem;padding:.4rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;border:1px solid var(--bd);color:var(--txd)">Transcribe</a>
+</div>
+<div class="header">
+<h1>HTML Template Picker</h1>
+<p>세션 리포트 HTML 디자인을 선택하세요. 선택 결과가 클립보드에 복사됩니다.</p>
+</div>
+
+<div id="no-data" class="no-data" style="display:none">
+<p>URL에 데이터가 없습니다. 아래에 JSON을 붙여넣으세요.</p>
+<textarea id="manual-input" placeholder='{"previous": {...}, "recommended": {...}, "session_type": "..."}'></textarea>
+<br><button onclick="loadManualData()">Load</button>
+</div>
+
+<div class="cards" id="cards" style="display:none">
+<div class="card" id="card-prev" onclick="selectOption('previous')">
+<span class="card-badge badge-prev">A</span>
+<div class="card-label" id="label-prev"></div>
+<div class="card-desc" id="desc-prev"></div>
+<div class="preview-box" id="preview-prev"></div>
+<div class="config-summary" id="summary-prev"></div>
+<button class="select-btn">이 디자인으로 선택</button>
+</div>
+
+<div class="card" id="card-ai" onclick="selectOption('recommended')">
+<span class="card-badge badge-ai">B</span>
+<div class="card-label" id="label-ai"></div>
+<div class="card-desc" id="desc-ai"></div>
+<div class="preview-box" id="preview-ai"></div>
+<div class="config-summary" id="summary-ai"></div>
+<button class="select-btn">AI 추천 적용</button>
+</div>
+
+<div class="card" id="card-new" onclick="selectOption('new')">
+<span class="card-badge badge-new">C</span>
+<div class="card-label"></div>
+<div class="card-desc"></div>
+<div class="preview-box" id="preview-new"></div>
+<div class="config-summary" id="summary-new"></div>
+<button class="select-btn">Wizard 열기</button>
+</div>
+</div>
+
+<div class="result" id="result">
+<h3 id="result-title">선택 결과</h3>
+<pre id="result-json"></pre>
+<div class="result-actions">
+<button class="btn-copy" id="copy-btn" onclick="copyResult()">클립보드에 복사</button>
+<button class="btn-wizard" id="wizard-link" style="display:none" onclick="openWizard()">Design Wizard 열기</button>
+</div>
+</div>
+
+<div class="footer">GHOST Racing — HTML Template Picker v1.0</div>
+
+<script>
+var DATA = null;
+var selectedOption = '';
+var resultJSON = '';
+
+function _mk(tag, cls) {
+  var el = document.createElement(tag);
+  if (cls) el.className = cls;
+  return el;
+}
+
+function init() {
+  document.getElementById('label-prev').textContent = '\u{1F504} \uC774\uC804 \uC0AC\uC6A9';
+  document.getElementById('label-ai').textContent = '\u{1F916} AI \uCD94\uCC9C';
+  document.querySelector('#card-new .card-label').textContent = '\u2728 \uC0C8\uB85C \uB9CC\uB4E4\uAE30';
+  document.querySelector('#card-new .card-desc').textContent = 'Design Wizard\uB97C \uC5F4\uC5B4 \uCC98\uC74C\uBD80\uD130 \uC0C8 \uB514\uC790\uC778\uC744 \uAD6C\uC131\uD569\uB2C8\uB2E4.';
+
+  var newPreview = document.getElementById('preview-new');
+  newPreview.style.display = 'flex';
+  newPreview.style.alignItems = 'center';
+  newPreview.style.justifyContent = 'center';
+  var newInner = _mk('div');
+  newInner.style.textAlign = 'center';
+  var iconDiv = _mk('div');
+  iconDiv.style.cssText = 'font-size:2.5rem;margin-bottom:.5rem';
+  iconDiv.textContent = '\u{1F3A8}';
+  var txtDiv = _mk('div');
+  txtDiv.style.color = 'var(--txd)';
+  txtDiv.textContent = 'Design Wizard \uC5F4\uAE30';
+  newInner.appendChild(iconDiv);
+  newInner.appendChild(txtDiv);
+  newPreview.appendChild(newInner);
+
+  document.getElementById('summary-new').textContent = '5\uB2E8\uACC4 \uCEE4\uC2A4\uD140 \uC704\uC800\uB4DC: \uB808\uC774\uC544\uC6C3 \u2192 \uD314\uB808\uD2B8 \u2192 \uD0C0\uC774\uD3EC \u2192 \uC2A4\uD0C0\uC77C \u2192 \uC544\uC774\uCF58';
+
+  var hash = location.hash.slice(1);
+  if (hash) {
+    try {
+      DATA = JSON.parse(decodeURIComponent(atob(hash)));
+      renderCards();
+    } catch(e) {
+      try {
+        DATA = JSON.parse(decodeURIComponent(hash));
+        renderCards();
+      } catch(e2) {
+        showNoData();
+      }
+    }
+  } else {
+    showNoData();
+  }
+}
+
+function showNoData() {
+  document.getElementById('no-data').style.display = 'block';
+  document.getElementById('cards').style.display = 'none';
+}
+
+function loadManualData() {
+  try {
+    var raw = document.getElementById('manual-input').value.replace(/[\n\r\t]/g, ' ');
+    DATA = JSON.parse(raw);
+    renderCards();
+  } catch(e) {
+    alert('Invalid JSON: ' + e.message);
+  }
+}
+
+function renderCards() {
+  document.getElementById('no-data').style.display = 'none';
+  document.getElementById('cards').style.display = 'grid';
+
+  if (DATA.previous) {
+    var p = DATA.previous;
+    document.getElementById('desc-prev').textContent =
+      '"' + (p.name || 'Unknown') + '" \u2014 ' + (p.format || 'scroll') + ' \uBAA8\uB4DC';
+    renderPreview('preview-prev', p.palette || {});
+    renderSummary('summary-prev', p);
+  }
+
+  if (DATA.recommended) {
+    var r = DATA.recommended;
+    document.getElementById('desc-ai').textContent =
+      (r.changes || 'AI \uCD94\uCC9C \uBCC0\uACBD\uC0AC\uD56D') + ' \u2014 ' + (r.reason || '');
+    var rConfig = r.config || r;
+    renderPreview('preview-ai', rConfig.palette || {});
+    renderSummary('summary-ai', rConfig);
+  }
+}
+
+function renderPreview(containerId, palette) {
+  var box = document.getElementById(containerId);
+  while (box.firstChild) box.removeChild(box.firstChild);
+  var bg = palette.bg || '#0f172a';
+  var accent = palette.accent || '#60a5fa';
+  var text = palette.text || '#e2e8f0';
+  var textDim = palette.text_dim || '#94a3b8';
+  var border = palette.border || '#334155';
+  var bgCard = palette.bg_card || palette.bg_subtle || '#1e293b';
+  box.style.background = bg;
+  box.style.borderColor = border;
+
+  var header = _mk('div', 'pv-header');
+  header.style.background = accent;
+  box.appendChild(header);
+
+  [text, textDim, textDim].forEach(function(c, i) {
+    var line = _mk('div', 'pv-text');
+    line.style.background = c;
+    line.style.width = [80, 65, 75][i] + '%';
+    box.appendChild(line);
+  });
+
+  var card = _mk('div', 'pv-card');
+  card.style.background = bgCard;
+  card.style.borderColor = border;
+  var cardLine1 = _mk('div', 'pv-text');
+  cardLine1.style.background = accent;
+  cardLine1.style.width = '40%';
+  var cardLine2 = _mk('div', 'pv-text');
+  cardLine2.style.background = textDim;
+  cardLine2.style.width = '70%';
+  card.appendChild(cardLine1);
+  card.appendChild(cardLine2);
+  box.appendChild(card);
+}
+
+function renderSummary(containerId, config) {
+  var el = document.getElementById(containerId);
+  while (el.firstChild) el.removeChild(el.firstChild);
+  var tags = [];
+  if (config.palette) {
+    tags.push('bg: ' + (config.palette.bg || ''));
+    tags.push('accent: ' + (config.palette.accent || ''));
+  }
+  if (config.typography) {
+    tags.push('font: ' + (config.typography.body_font || '').replace(/'/g, ''));
+  }
+  if (config.format) {
+    tags.push('format: ' + config.format);
+  }
+  tags.forEach(function(t) {
+    var span = _mk('span', 'config-tag');
+    span.textContent = t;
+    el.appendChild(span);
+  });
+}
+
+function selectOption(option) {
+  selectedOption = option;
+  document.querySelectorAll('.card').forEach(function(c) { c.classList.remove('selected'); });
+
+  if (option === 'previous') {
+    document.getElementById('card-prev').classList.add('selected');
+    resultJSON = JSON.stringify({ choice: 'previous', action: 'use_existing' }, null, 2);
+    document.getElementById('result-title').textContent = 'A: \uC774\uC804 \uB514\uC790\uC778 \uC0AC\uC6A9';
+    document.getElementById('wizard-link').style.display = 'none';
+  } else if (option === 'recommended') {
+    document.getElementById('card-ai').classList.add('selected');
+    var aiConfig = DATA.recommended && DATA.recommended.config ? DATA.recommended.config : {};
+    resultJSON = JSON.stringify({ choice: 'recommended', action: 'apply_ai', config: aiConfig }, null, 2);
+    document.getElementById('result-title').textContent = 'B: AI \uCD94\uCC9C \uC801\uC6A9';
+    document.getElementById('wizard-link').style.display = 'none';
+  } else if (option === 'new') {
+    document.getElementById('card-new').classList.add('selected');
+    resultJSON = JSON.stringify({ choice: 'new', action: 'open_wizard' }, null, 2);
+    document.getElementById('result-title').textContent = 'C: Design Wizard \uC5F4\uAE30';
+    document.getElementById('wizard-link').style.display = 'inline-flex';
+  }
+
+  document.getElementById('result-json').textContent = resultJSON;
+  document.getElementById('result').classList.add('active');
+  copyResult();
+}
+
+function copyResult() {
+  navigator.clipboard.writeText(resultJSON).then(function() {
+    var btn = document.getElementById('copy-btn');
+    btn.textContent = '\u2705 \uBCF5\uC0AC\uB428!';
+    setTimeout(function() { btn.textContent = '\uD074\uB9BD\uBCF4\uB4DC\uC5D0 \uBCF5\uC0AC'; }, 2000);
+  });
+}
+
+function openWizard() {
+  window.open('design-wizard.html', '_blank');
+}
+
+init();
+</script>
+</body>
+</html>

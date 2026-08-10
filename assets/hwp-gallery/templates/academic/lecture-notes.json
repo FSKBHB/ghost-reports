@@ -1,0 +1,75 @@
+{
+  "id": "lecture-notes",
+  "category": "academic",
+  "name": "강의노트",
+  "icon": "📖",
+  "description": "핵심 개념, 수식, 예제, 요약",
+  "procedure": 3,
+  "features": ["tables", "concept-box", "formulas"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "과목명 + 주제",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 18, "title_color": "BLUE", "subtitle_size": 11, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "날짜 / 교수명 / 과목코드",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "concepts",
+      "label": "핵심 개념",
+      "required": true,
+      "render": "bullet_list",
+      "params": { "heading": "■ 핵심 개념", "heading_size": 16 }
+    },
+    {
+      "id": "formulas",
+      "label": "수식 / 공식",
+      "required": false,
+      "render": "heading_text",
+      "params": { "heading_size": 14 }
+    },
+    {
+      "id": "examples",
+      "label": "예제 / 풀이",
+      "required": false,
+      "render": "numbered_list",
+      "params": {}
+    },
+    {
+      "id": "summary_table",
+      "label": "요약 테이블",
+      "required": true,
+      "render": "data_table",
+      "params": { "col_ratios": [30, 50, 20] }
+    },
+    {
+      "id": "questions",
+      "label": "질문 사항",
+      "required": false,
+      "render": "checklist",
+      "params": {}
+    },
+    {
+      "id": "transcript",
+      "label": "수업 전사",
+      "required": false,
+      "render": "transcript_body",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": false }
+}

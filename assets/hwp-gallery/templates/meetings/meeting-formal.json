@@ -1,0 +1,68 @@
+{
+  "id": "meeting-formal",
+  "category": "meetings",
+  "name": "공식 회의록",
+  "icon": "📝",
+  "description": "안건, 발언 기록, 결정사항, 후속 조치, 서명란 포함 공식 회의록",
+  "procedure": 2,
+  "features": ["tables", "timestamps", "attendees", "approval"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "회의 제목",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 20, "title_color": "BLUE", "subtitle_size": 11, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "회의 정보",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "agenda",
+      "label": "안건 목록",
+      "required": true,
+      "render": "numbered_list",
+      "params": {}
+    },
+    {
+      "id": "discussion",
+      "label": "발언 기록",
+      "required": true,
+      "render": "transcript_body",
+      "params": {}
+    },
+    {
+      "id": "decisions",
+      "label": "결정 사항",
+      "required": true,
+      "render": "data_table",
+      "params": {}
+    },
+    {
+      "id": "action_items",
+      "label": "후속 조치",
+      "required": true,
+      "render": "checklist",
+      "params": {}
+    },
+    {
+      "id": "approval",
+      "label": "서명란",
+      "required": false,
+      "render": "approval_block",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": false }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "seminar-notes",
+  "category": "transcription",
+  "name": "세미나 기록",
+  "icon": "🎓",
+  "description": "발표자, 주제, 핵심 내용",
+  "procedure": 4,
+  "features": ["tables", "bullet-list", "takeaways"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "세미나 제목",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 18, "title_color": "BLUE", "subtitle_size": 10, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "날짜 / 발표자 / 장소",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "transcript",
+      "label": "세미나 전사",
+      "required": true,
+      "render": "transcript_body",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": false }
+}

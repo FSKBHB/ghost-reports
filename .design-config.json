@@ -1,0 +1,104 @@
+{
+  "version": 2,
+  "name": "Cyberpunk + Noto",
+  "profile_id": "custom-20260316",
+  "created": "2026-03-16",
+  "purpose": "documentation",
+  "style": {
+    "mode": "dark",
+    "base": "story-scroll",
+    "border_radius": "4px",
+    "shadow_style": "glass",
+    "card_style": "bordered"
+  },
+  "palette": {
+    "bg": "#0a0a1a",
+    "bg_subtle": "#050510",
+    "bg_card": "#151530",
+    "accent": "#00ff88",
+    "accent_light": "#ff00ff",
+    "accent_dark": "#00ff88",
+    "accent_bg": "rgba(0,255,136,0.15)",
+    "text": "#e0e0ff",
+    "text_dim": "#6060a0",
+    "text_light": "#e0e0ff",
+    "border": "#151530",
+    "border_light": "#00ff88",
+    "high": "#ff0044",
+    "medium": "#ffff00",
+    "low": "#00ff88",
+    "new": "#a78bfa",
+    "code_bg": "#050510",
+    "code_text": "#e0e0ff"
+  },
+  "typography": {
+    "heading_font": "'Noto Sans KR', sans-serif",
+    "body_font": "'Noto Sans KR', sans-serif",
+    "code_font": "'Fira Code', monospace",
+    "base_size": "15px",
+    "heading_weight": "700",
+    "body_weight": "400",
+    "line_height": "2.0",
+    "letter_spacing": "-0.02em",
+    "cdn_links": [
+      "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap",
+      "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap",
+      "https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
+    ]
+  },
+  "layout": {
+    "max_width": "1200px",
+    "header_style": "badge-dual",
+    "nav_style": "sticky-top",
+    "section_style": "card",
+    "grid_columns": "repeat(auto-fit, minmax(340px, 1fr))",
+    "content_padding": "1.5rem"
+  },
+  "spacing": {
+    "id": "comfortable",
+    "content_padding": "1.5rem",
+    "card_padding": "16px 20px",
+    "section_gap": "24px"
+  },
+  "animation": {
+    "id": "smooth",
+    "transition": "all 0.3s ease",
+    "hover_transform": "translateY(-4px)"
+  },
+  "icons": {
+    "source": "docs/svg/",
+    "library": "lucide",
+    "selected": [
+      "wrench", "gauge", "cog", "ruler", "triangle", "box", "layers",
+      "grid-3x3", "bar-chart-2", "alert-triangle", "check-circle", "x-circle",
+      "activity", "shield", "cpu", "zap", "settings", "clipboard-list",
+      "file-text", "info", "bar-chart", "share-2", "external-link", "eye",
+      "pie-chart", "trending-up", "filter", "search", "calendar", "clock",
+      "table-2", "list", "user", "users", "columns", "flag", "printer",
+      "download", "bookmark", "code", "unlock", "bug", "terminal", "database",
+      "test-tube", "flask-conical", "server", "wifi", "monitor", "smartphone",
+      "globe", "git-branch", "hard-drive", "cloud", "git-merge", "package",
+      "puzzle", "key", "lock", "home", "volume-2", "sun", "star", "heart",
+      "moon", "menu", "bell", "x", "mail", "phone", "plus", "minus",
+      "map-pin", "image", "check", "camera", "music", "play", "pause",
+      "sigma", "binary", "regex", "calculator", "flask-round", "workflow",
+      "git-compare", "microscope", "atom", "folder-tree", "file-json", "dna",
+      "brain", "file-code-2", "variable", "chart-line", "chart-scatter",
+      "chart-area", "chart-bar-stacked", "chart-pie"
+    ]
+  },
+  "slide_composition": {
+    "preset": "auto-recommend",
+    "slides": [
+      {"id": 1, "type": "slide-centered", "title": "타이틀", "required": true},
+      {"id": 2, "type": "slide-title-content", "title": "목차", "required": false},
+      {"id": 3, "type": "slide-title-content", "title": "개요", "required": false},
+      {"id": 4, "type": "slide-code", "title": "설치 / 설정", "required": false},
+      {"id": 5, "type": "slide-code", "title": "사용법", "required": false},
+      {"id": 6, "type": "slide-split", "title": "API 레퍼런스", "required": false},
+      {"id": 7, "type": "slide-title-content", "title": "예제", "required": false},
+      {"id": 8, "type": "slide-stats", "title": "FAQ", "required": false},
+      {"id": 9, "type": "slide-centered", "title": "참고 링크", "required": false}
+    ]
+  }
+}

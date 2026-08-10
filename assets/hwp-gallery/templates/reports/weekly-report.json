@@ -1,0 +1,75 @@
+{
+  "id": "weekly-report",
+  "category": "reports",
+  "name": "주간 보고서",
+  "icon": "📊",
+  "description": "주간 요약, 핵심 지표, 완료/진행중 항목, 이슈, 다음 주 계획",
+  "procedure": 1,
+  "features": ["tables", "tagged-bullets", "stats", "checklist"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "제목",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 20, "title_color": "BLUE", "subtitle_size": 11, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "meta",
+      "label": "보고 정보",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "summary",
+      "label": "주간 요약",
+      "required": true,
+      "render": "tagged_bullets",
+      "params": { "heading": "■ 주간 요약", "heading_size": 16 }
+    },
+    {
+      "id": "stats",
+      "label": "핵심 지표",
+      "required": false,
+      "render": "stats_row",
+      "params": {}
+    },
+    {
+      "id": "completed",
+      "label": "완료 항목",
+      "required": true,
+      "render": "data_table",
+      "params": {}
+    },
+    {
+      "id": "in_progress",
+      "label": "진행중 항목",
+      "required": true,
+      "render": "data_table",
+      "params": {}
+    },
+    {
+      "id": "issues",
+      "label": "이슈 / 리스크",
+      "required": false,
+      "render": "data_table",
+      "params": {}
+    },
+    {
+      "id": "next_week",
+      "label": "다음 주 계획",
+      "required": true,
+      "render": "checklist",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": false }
+}

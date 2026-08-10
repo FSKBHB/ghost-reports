@@ -1,0 +1,89 @@
+{
+  "id": "session-report",
+  "category": "reports",
+  "name": "세션 리포트",
+  "icon": "📋",
+  "description": "작업 내역, 진행률, 의사결정, TODO 정리",
+  "procedure": 1,
+  "features": ["tables", "tagged-bullets", "color-coded", "before-after"],
+  "sections": [
+    {
+      "id": "title",
+      "label": "제목 + 부제",
+      "required": true,
+      "render": "title_block",
+      "params": { "title_size": 20, "title_color": "BLUE", "subtitle_size": 11, "subtitle_color": "GRAY" }
+    },
+    {
+      "id": "info_table",
+      "label": "기본 정보 테이블",
+      "required": true,
+      "render": "kv_table",
+      "params": { "cols": 4, "col_ratios": [15, 35, 15, 35], "label_cols": [0, 2] }
+    },
+    {
+      "id": "summary",
+      "label": "세션 요약 (태그 불릿)",
+      "required": true,
+      "render": "tagged_bullets",
+      "params": { "heading": "■ 세션 요약", "heading_size": 16 }
+    },
+    {
+      "id": "stats",
+      "label": "통계 행",
+      "required": false,
+      "render": "stats_row",
+      "params": {}
+    },
+    {
+      "id": "details",
+      "label": "상세 작업 내용",
+      "required": true,
+      "render": "heading_text",
+      "params": { "heading_size": 16 }
+    },
+    {
+      "id": "phases",
+      "label": "Phase 진행 현황",
+      "required": false,
+      "render": "data_table",
+      "params": {}
+    },
+    {
+      "id": "decisions",
+      "label": "의사결정 현황",
+      "required": false,
+      "render": "data_table",
+      "params": {}
+    },
+    {
+      "id": "references",
+      "label": "참고자료",
+      "required": false,
+      "render": "bullet_list",
+      "params": {}
+    },
+    {
+      "id": "files",
+      "label": "변경 파일",
+      "required": false,
+      "render": "bullet_list",
+      "params": {}
+    },
+    {
+      "id": "todos",
+      "label": "다음 세션 TODO",
+      "required": true,
+      "render": "checklist",
+      "params": {}
+    },
+    {
+      "id": "footer",
+      "label": "푸터",
+      "required": true,
+      "render": "footer",
+      "params": {}
+    }
+  ],
+  "options": { "page_border": false }
+}

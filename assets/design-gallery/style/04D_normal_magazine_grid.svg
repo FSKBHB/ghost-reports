@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+<rect width="800" height="500" fill="#f8fafc"/>
+<rect x="0" y="0" width="800" height="30" fill="#e2e8f0" />
+<circle cx="14" cy="15" r="5" fill="#f87171"/>
+<circle cx="32" cy="15" r="5" fill="#fbbf24"/>
+<circle cx="50" cy="15" r="5" fill="#4ade80"/>
+<rect x="70" y="7" width="710" height="16" rx="4" fill="#f8fafc"/>
+<rect x="80" y="12" width="140" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="0" y="30" width="800" height="40" fill="#f8fafc"/>
+<rect x="0" y="69" width="800" height="2" fill="#94a3b8"/>
+<rect x="320" y="42" width="160" height="10" rx="4" fill="#64748b"/>
+<rect x="350" y="56" width="100" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="16" y="88" width="376" height="160" fill="#ffffff" fill-opacity="0.5" rx="10" ry="10" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" fill-opacity="0.5"/>
+<rect x="32" y="104" width="344" height="10" rx="4" fill="#64748b"/>
+<rect x="32" y="122" width="344" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="32" y="134" width="344" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="32" y="146" width="344" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="32" y="158" width="344" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="32" y="170" width="206" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="408" y="88" width="376" height="72" fill="#ffffff" fill-opacity="0.5" rx="10" ry="10" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" fill-opacity="0.5"/>
+<rect x="424" y="104" width="328" height="10" rx="4" fill="#64748b"/>
+<rect x="424" y="120" width="344" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="424" y="132" width="206" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="408" y="176" width="376" height="72" fill="#ffffff" fill-opacity="0.5" rx="10" ry="10" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" fill-opacity="0.5"/>
+<rect x="424" y="192" width="328" height="10" rx="4" fill="#64748b"/>
+<rect x="424" y="208" width="344" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="424" y="220" width="206" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="16" y="264" width="245" height="100" fill="#ffffff" fill-opacity="0.5" rx="10" ry="10" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" fill-opacity="0.5"/>
+<rect x="32" y="280" width="213" height="40" fill="#e2e8f0" />
+<rect x="32" y="328" width="197" height="10" rx="4" fill="#64748b"/>
+<rect x="32" y="342" width="213" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="32" y="352" width="127" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="277" y="264" width="245" height="100" fill="#ffffff" fill-opacity="0.5" rx="10" ry="10" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" fill-opacity="0.5"/>
+<rect x="293" y="280" width="213" height="40" fill="#e2e8f0" />
+<rect x="293" y="328" width="197" height="10" rx="4" fill="#64748b"/>
+<rect x="293" y="342" width="213" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="293" y="352" width="127" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="538" y="264" width="245" height="100" fill="#ffffff" fill-opacity="0.5" rx="10" ry="10" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2" fill-opacity="0.5"/>
+<rect x="554" y="280" width="213" height="40" fill="#e2e8f0" />
+<rect x="554" y="328" width="197" height="10" rx="4" fill="#64748b"/>
+<rect x="554" y="342" width="213" height="6" rx="3" fill="#e2e8f0"/>
+<rect x="554" y="352" width="127" height="6" rx="3" fill="#e2e8f0"/>
+<!-- Title bar -->
+<rect x="0" y="472" width="800" height="28" fill="#1e293b"/>
+<text x="400" y="490" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">04D. Magazine Grid -- Glass / Normal</text>
+</svg>

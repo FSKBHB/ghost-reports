@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "name": "White-Blue (Default)",
+  "profile_id": "default",
+  "created": "2026-03-12",
+  "style": {
+    "mode": "light",
+    "base": "engineering-dashboard",
+    "border_radius": "8px",
+    "shadow_style": "soft",
+    "card_style": "bordered"
+  },
+  "palette": {
+    "bg": "#ffffff",
+    "bg_subtle": "#f8fafc",
+    "bg_card": "#eff6ff",
+    "accent": "#2563eb",
+    "accent_light": "#3b82f6",
+    "accent_dark": "#1d4ed8",
+    "accent_bg": "#dbeafe",
+    "text": "#1e293b",
+    "text_dim": "#64748b",
+    "text_light": "#94a3b8",
+    "border": "#bfdbfe",
+    "border_light": "#dbeafe",
+    "high": "#dc2626",
+    "medium": "#d97706",
+    "low": "#16a34a",
+    "new": "#7c3aed",
+    "code_bg": "#f1f5f9",
+    "code_text": "#1e293b"
+  },
+  "typography": {
+    "heading_font": "'Noto Sans KR', sans-serif",
+    "body_font": "'Noto Sans KR', sans-serif",
+    "code_font": "'Cascadia Code', 'Fira Code', monospace",
+    "base_size": "15px",
+    "heading_weight": "700",
+    "body_weight": "400",
+    "line_height": "1.7",
+    "cdn_links": [
+      "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap"
+    ]
+  },
+  "layout": {
+    "max_width": "1200px",
+    "header_style": "badge-dual",
+    "nav_style": "sticky-top",
+    "section_style": "card",
+    "grid_columns": "repeat(auto-fit, minmax(340px, 1fr))",
+    "content_padding": "2rem"
+  },
+  "icons": {
+    "source": "docs/svg/",
+    "library": "lucide",
+    "selected": []
+  }
+}

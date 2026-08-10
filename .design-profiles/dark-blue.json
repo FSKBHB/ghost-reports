@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "name": "Dark-Blue (CLAUDE.md Theme)",
+  "profile_id": "dark-blue",
+  "created": "2026-03-12",
+  "style": {
+    "mode": "dark",
+    "base": "engineering-dashboard",
+    "border_radius": "8px",
+    "shadow_style": "glow",
+    "card_style": "bordered"
+  },
+  "palette": {
+    "bg": "#0f172a",
+    "bg_subtle": "#1e293b",
+    "bg_card": "#172554",
+    "accent": "#60a5fa",
+    "accent_light": "#93c5fd",
+    "accent_dark": "#1e40af",
+    "accent_bg": "rgba(96, 165, 250, 0.15)",
+    "text": "#e2e8f0",
+    "text_dim": "#94a3b8",
+    "text_light": "#f1f5f9",
+    "border": "#334155",
+    "border_light": "#1e40af",
+    "high": "#f87171",
+    "medium": "#fbbf24",
+    "low": "#4ade80",
+    "new": "#a78bfa",
+    "code_bg": "#1e293b",
+    "code_text": "#e2e8f0"
+  },
+  "typography": {
+    "heading_font": "'Noto Sans KR', sans-serif",
+    "body_font": "'Noto Sans KR', sans-serif",
+    "code_font": "'Cascadia Code', 'Fira Code', monospace",
+    "base_size": "15px",
+    "heading_weight": "700",
+    "body_weight": "400",
+    "line_height": "1.7",
+    "cdn_links": [
+      "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap"
+    ]
+  },
+  "layout": {
+    "max_width": "1200px",
+    "header_style": "badge-dual",
+    "nav_style": "sticky-top",
+    "section_style": "card",
+    "grid_columns": "repeat(auto-fit, minmax(340px, 1fr))",
+    "content_padding": "2rem"
+  },
+  "icons": {
+    "source": "docs/svg/",
+    "library": "lucide",
+    "selected": []
+  }
+}

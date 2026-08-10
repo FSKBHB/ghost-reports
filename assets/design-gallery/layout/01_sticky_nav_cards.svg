@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>01. Sticky Nav + Cards</title>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #ffffff; stroke: #94a3b8; stroke-width: 1; rx: 6; }
+      .nav { fill: #1e293b; }
+      .accent { fill: #2563eb; }
+      .text { fill: #64748b; font-family: sans-serif; font-size: 11px; }
+      .text-sm { fill: #64748b; font-family: sans-serif; font-size: 9px; }
+      .label { fill: #2563eb; font-family: sans-serif; font-size: 12px; font-weight: 700; }
+      .line { fill: none; stroke: #e2e8f0; stroke-width: 1; }
+      .line-accent { fill: none; stroke: #2563eb; stroke-width: 2; }
+      .placeholder { fill: #e2e8f0; rx: 4; }
+    </style>
+  </defs>
+  <rect width="800" height="500" class="bg"/>
+  <rect x="0" y="0" width="800" height="48" class="nav"/>
+  <rect x="12" y="12" width="24" height="24" class="accent" rx="4"/>
+  <text x="44" y="30" class="text" fill="#f1f5f9" font-weight="700">GHOST Racing</text>
+  <text x="400" y="30" class="text" fill="#94a3b8">Overview</text>
+  <text x="490" y="30" class="text" fill="#94a3b8">Analysis</text>
+  <text x="580" y="30" class="text" fill="#94a3b8">Results</text>
+  <text x="670" y="30" class="text" fill="#94a3b8">Appendix</text>
+  <rect x="24" y="68" width="240" height="180" class="card"/>
+  <rect x="36" y="80" width="216" height="8" class="placeholder"/>
+  <rect x="36" y="98" width="160" height="6" class="placeholder"/>
+  <rect x="36" y="118" width="216" height="100" class="placeholder"/>
+  <rect x="276" y="68" width="240" height="180" class="card"/>
+  <rect x="288" y="80" width="216" height="8" class="placeholder"/>
+  <rect x="288" y="98" width="160" height="6" class="placeholder"/>
+  <rect x="288" y="118" width="216" height="100" class="placeholder"/>
+  <rect x="528" y="68" width="240" height="180" class="card"/>
+  <rect x="540" y="80" width="216" height="8" class="placeholder"/>
+  <rect x="540" y="98" width="160" height="6" class="placeholder"/>
+  <rect x="540" y="118" width="216" height="100" class="placeholder"/>
+  <rect x="24" y="268" width="240" height="180" class="card"/>
+  <rect x="36" y="280" width="216" height="8" class="placeholder"/>
+  <rect x="36" y="298" width="160" height="6" class="placeholder"/>
+  <rect x="36" y="318" width="216" height="100" class="placeholder"/>
+  <rect x="276" y="268" width="240" height="180" class="card"/>
+  <rect x="288" y="280" width="216" height="8" class="placeholder"/>
+  <rect x="288" y="298" width="160" height="6" class="placeholder"/>
+  <rect x="288" y="318" width="216" height="100" class="placeholder"/>
+  <rect x="528" y="268" width="240" height="180" class="card"/>
+  <rect x="540" y="280" width="216" height="8" class="placeholder"/>
+  <rect x="540" y="298" width="160" height="6" class="placeholder"/>
+  <rect x="540" y="318" width="216" height="100" class="placeholder"/>
+  <text x="400" y="488" class="label" text-anchor="middle">01. Sticky Nav + Card Grid</text>
+</svg>
